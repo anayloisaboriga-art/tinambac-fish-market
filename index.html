@@ -1589,7 +1589,350 @@ loadProducts();
 
 async function checkout(){
 
-    alert("Checkout button is working!");
+
+    if(shoppingCart.length === 0){
+
+        alert(
+            "Your cart is empty."
+        );
+
+        return;
+
+    }
+
+
+
+    const {
+        data:userData,
+        error:userError
+    } =
+    await supabaseClient.auth.getUser();
+
+
+
+    if(userError || !userData.user){
+
+        alert(
+            "Please login first."
+        );
+
+        return;
+
+    }
+
+
+
+    const userId =
+        userData.user.id;
+
+
+
+    // Get customer profile
+
+    const {
+        data:customer,
+        error:customerError
+    } =
+    await supabaseClient
+
+    .from("customers")
+
+    .select("*")
+
+    .eq(
+        "user_id",
+        userId
+    )
+
+    .single();
+
+
+
+    if(customerError){
+
+        console.error(
+            customerError
+        );
+
+        alert(
+            "Customer information not found."
+        );
+
+        return;
+
+    }
+
+
+
+    // Get default delivery address
+
+    const {
+        data:address,
+        error:addressError
+    } =
+    await supabaseClient
+
+    .from("delivery_addresses")
+
+    .select("*")
+
+    .eq(
+        "user_id",
+        userId
+    )
+
+    .eq(
+        "is_default",
+        true
+    )
+
+    .single();
+
+
+
+    if(addressError){
+
+        console.error(
+            addressError
+        );
+
+        alert(
+            "Default delivery address not found."
+        );
+
+        return;
+
+    }
+
+
+
+    // Calculate total
+
+    const subtotal =
+        shoppingCart.reduce(
+            function(total,item){
+
+                return total + item.subtotal;
+
+            },
+            0
+        );
+
+
+
+    const deliveryFee = 0;
+
+
+    const totalAmount =
+        subtotal + deliveryFee;
+
+
+
+    // First vendor only for version 1
+
+    const vendorId =
+        shoppingCart[0].vendor_id;
+
+
+
+    // Create order
+
+    const {
+        data:order,
+        error:orderError
+    }
+    =
+    await supabaseClient
+
+    .from("orders")
+
+    .insert({
+
+        customer_id:
+            customer.id,
+
+        vendor_id:
+            vendorId,
+
+        delivery_address_id:
+            address.id,
+
+        delivery_method:
+            "delivery",
+
+        status:
+            "pending",
+
+        subtotal:
+            subtotal,
+
+        delivery_fee:
+            deliveryFee,
+
+        total_amount:
+            totalAmount,
+
+        customer_notes:
+            "Online order from Tinambac Fish Market"
+
+    })
+
+    .select()
+
+    .single();
+
+
+
+    if(orderError){
+
+        console.error(
+            orderError
+        );
+
+        alert(
+            "Order creation failed:\n"
+            +
+            orderError.message
+        );
+
+        return;
+
+    }
+
+
+
+    // Create order items
+
+    const items =
+        shoppingCart.map(
+            function(item){
+
+                return {
+
+                    order_id:
+                        order.id,
+
+                    product_id:
+                        item.product_id,
+
+                    product_name:
+                        item.product_name,
+
+                    unit:
+                        item.unit,
+
+                    unit_price:
+                        item.unit_price,
+
+                    quantity:
+                        item.quantity,
+
+                    subtotal:
+                        item.subtotal
+
+                };
+
+            }
+        );
+
+
+
+    const {
+        error:itemError
+    }
+    =
+    await supabaseClient
+
+    .from("order_items")
+
+    .insert(items);
+
+
+
+    if(itemError){
+
+        console.error(
+            itemError
+        );
+
+        alert(
+            "Order items failed:\n"
+            +
+            itemError.message
+        );
+
+        return;
+
+    }
+
+
+
+    // Create payment record
+
+    const {
+        error:paymentError
+    }
+    =
+    await supabaseClient
+
+    .from("payments")
+
+    .insert({
+
+        order_id:
+            order.id,
+
+        payment_method:
+            "Cash on Delivery",
+
+        amount:
+            totalAmount,
+
+        status:
+            "pending"
+
+    });
+
+
+
+    if(paymentError){
+
+        console.error(
+            paymentError
+        );
+
+        alert(
+            "Payment record failed:\n"
+            +
+            paymentError.message
+        );
+
+        return;
+
+    }
+
+
+
+    // Clear cart
+
+    shoppingCart = [];
+
+
+    localStorage.removeItem(
+        "tinambacCart"
+    );
+
+
+    updateCartDisplay();
+
+
+
+    alert(
+        "ORDER SUCCESSFUL!\n\n" +
+        "Order ID:\n" +
+        order.id
+    );
+
 
 }
 
