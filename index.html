@@ -572,7 +572,59 @@ Checkout
 </section>
 
 <!-- LOGIN MODAL HERE -->
+<div id="login-modal"
+style="
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.5);
+align-items:center;
+justify-content:center;
+z-index:9999;
+">
 
+<div style="
+background:white;
+padding:30px;
+border-radius:10px;
+width:320px;
+">
+
+<h2>Customer Login</h2>
+
+<input
+id="login-email"
+type="email"
+placeholder="Email"
+style="width:100%;padding:10px;margin:5px 0;"
+>
+
+<input
+id="login-password"
+type="password"
+placeholder="Password"
+style="width:100%;padding:10px;margin:5px 0;"
+>
+
+<button onclick="loginUser()">
+Login
+</button>
+
+<button onclick="registerUser()">
+Create Account
+</button>
+
+<button onclick="closeLogin()">
+Close
+</button>
+
+</div>
+
+</div>
+    
 <footer>
 
     <p>
@@ -1022,7 +1074,116 @@ async function checkout(){
         return;
 
     }
+function showLogin(){
 
+    document.getElementById(
+        "login-modal"
+    ).style.display = "flex";
+
+}
+
+
+function closeLogin(){
+
+    document.getElementById(
+        "login-modal"
+    ).style.display = "none";
+
+}
+
+
+async function loginUser(){
+
+    const email =
+    document.getElementById(
+        "login-email"
+    ).value;
+
+
+    const password =
+    document.getElementById(
+        "login-password"
+    ).value;
+
+
+    const {
+        data,
+        error
+    } =
+    await supabaseClient.auth.signInWithPassword({
+
+        email: email,
+
+        password: password
+
+    });
+
+
+    if(error){
+
+        alert(
+            error.message
+        );
+
+        return;
+
+    }
+
+
+    alert(
+        "Login successful!"
+    );
+
+
+    closeLogin();
+
+}
+
+
+
+async function registerUser(){
+
+    const email =
+    document.getElementById(
+        "login-email"
+    ).value;
+
+
+    const password =
+    document.getElementById(
+        "login-password"
+    ).value;
+
+
+    const {
+        data,
+        error
+    } =
+    await supabaseClient.auth.signUp({
+
+        email: email,
+
+        password: password
+
+    });
+
+
+    if(error){
+
+        alert(
+            error.message
+        );
+
+        return;
+
+    }
+
+
+    alert(
+        "Account created successfully!"
+    );
+
+}
 
     const {
         data: userData,
