@@ -362,21 +362,13 @@
     <strong id="cart-count">0</strong>
     item(s)
 
-    <button
-        onclick="showCart()"
-        style="
-            margin-left:10px;
-            padding:8px 15px;
-            border:none;
-            border-radius:6px;
-            background:#087f8c;
-            color:white;
-            cursor:pointer;
-        ">
+   <button onclick="showCart()">
+View Cart
+</button>
 
-        View Cart
-
-    </button>
+<button onclick="checkout()">
+Checkout
+</button>
 
 </div>
 
@@ -1003,7 +995,256 @@ shoppingCart.length;
 
 
 function showCart(){
+async function checkout(){
 
+    if(shoppingCart.length === 0){
+
+        alert(
+            "Your cart is empty."
+        );
+
+        return;
+
+    }
+
+
+    const user =
+        await supabaseClient.auth.getUser();
+
+
+    if(!user.data.user){
+
+        alert(
+            "Please login before checkout."
+        );
+
+        return;
+
+    }
+
+
+    const userId =
+        user.data.user.id;
+
+
+
+    const {data:customer,error:customerError}
+        =
+        await supabaseClient
+
+        .from("customers")
+
+        .select("*")
+
+        .eq(
+            "user_id",
+            userId
+        )
+
+        .single();
+
+
+
+    if(customerError){
+
+        alert(
+            "Customer profile not found."
+        );
+
+        console.error(
+            customerError
+        );
+
+        return;
+
+    }
+
+
+
+    const firstItem =
+        shoppingCart[0];
+
+
+
+    const subtotal =
+        shoppingCart.reduce(
+            (total,item)=>
+            total + item.subtotal,
+            0
+        );
+
+
+
+    const deliveryFee = 0;
+
+
+
+    const totalAmount =
+        subtotal + deliveryFee;
+
+
+
+    const {data:order,error:orderError}
+        =
+        await supabaseClient
+
+        .from("orders")
+
+        .insert({
+
+            customer_id:
+                customer.id,
+
+            vendor_id:
+                firstItem.vendor_id,
+
+            subtotal:
+                subtotal,
+
+            delivery_fee:
+                deliveryFee,
+
+            total_amount:
+                totalAmount,
+
+            status:
+                "pending",
+
+            delivery_method:
+                "delivery",
+
+            customer_notes:
+                "Online order from Tinambac Fish Market"
+
+        })
+
+        .select()
+
+        .single();
+
+
+
+    if(orderError){
+
+        console.error(
+            orderError
+        );
+
+        alert(
+            "Unable to create order."
+        );
+
+        return;
+
+    }
+
+
+
+
+    const orderItems =
+        shoppingCart.map(
+            item => ({
+
+                order_id:
+                    order.id,
+
+                product_id:
+                    item.product_id,
+
+                product_name:
+                    item.product_name,
+
+                unit:
+                    item.unit,
+
+                unit_price:
+                    item.unit_price,
+
+                quantity:
+                    item.quantity,
+
+                subtotal:
+                    item.subtotal
+
+            })
+        );
+
+
+
+
+    const {error:itemError}
+        =
+        await supabaseClient
+
+        .from("order_items")
+
+        .insert(
+            orderItems
+        );
+
+
+
+    if(itemError){
+
+        console.error(
+            itemError
+        );
+
+        alert(
+            "Order items failed."
+        );
+
+        return;
+
+    }
+
+
+
+
+    await supabaseClient
+
+    .from("payments")
+
+    .insert({
+
+        order_id:
+            order.id,
+
+        payment_method:
+            "Cash on Delivery",
+
+        amount:
+            totalAmount,
+
+        status:
+            "pending"
+
+    });
+
+
+
+
+
+    localStorage.removeItem(
+        "tinambacCart"
+    );
+
+
+    shoppingCart = [];
+
+
+    updateCartDisplay();
+
+
+
+    alert(
+        "Order placed successfully!\n\nOrder ID: "
+        +
+        order.id
+    );
+
+
+}
 
 if(
 shoppingCart.length === 0
