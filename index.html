@@ -996,18 +996,266 @@ shoppingCart.length;
 
 function showCart(){
 async function checkout(){
+
     alert("Checkout button is working!");
-    
+
     if(shoppingCart.length === 0){
 
+        alert("Your cart is empty.");
+
+        return;
+
+    }
+async function checkout(){
+
+    alert("Checkout button is working!");
+
+
+    if(shoppingCart.length === 0){
+
+        alert("Your cart is empty.");
+
+        return;
+
+    }
+
+
+    const {
+        data: userData,
+        error: userError
+    } = await supabaseClient.auth.getUser();
+
+
+    if(userError || !userData.user){
+
         alert(
-            "Your cart is empty."
+            "Please login before checkout."
         );
 
         return;
 
     }
 
+
+    const userId =
+        userData.user.id;
+
+
+
+    const {
+        data: customer,
+        error: customerError
+    } =
+    await supabaseClient
+
+    .from("customers")
+
+    .select("*")
+
+    .eq(
+        "user_id",
+        userId
+    )
+
+    .single();
+
+
+
+    if(customerError){
+
+        console.error(
+            customerError
+        );
+
+        alert(
+            "Customer profile not found."
+        );
+
+        return;
+
+    }
+
+
+
+    const subtotal =
+        shoppingCart.reduce(
+            function(total,item){
+
+                return total + item.subtotal;
+
+            },
+            0
+        );
+
+
+
+    const firstItem =
+        shoppingCart[0];
+
+
+
+    const {
+        data: order,
+        error: orderError
+    } =
+    await supabaseClient
+
+    .from("orders")
+
+    .insert({
+
+        customer_id:
+            customer.id,
+
+        vendor_id:
+            firstItem.vendor_id,
+
+        subtotal:
+            subtotal,
+
+        delivery_fee:
+            0,
+
+        total_amount:
+            subtotal,
+
+        status:
+            "pending",
+
+        delivery_method:
+            "delivery",
+
+        customer_notes:
+            "Online order"
+
+    })
+
+    .select()
+
+    .single();
+
+
+
+    if(orderError){
+
+        console.error(
+            orderError
+        );
+
+        alert(
+            orderError.message
+        );
+
+        return;
+
+    }
+
+
+
+    const orderItems =
+        shoppingCart.map(
+            function(item){
+
+                return {
+
+                    order_id:
+                        order.id,
+
+                    product_id:
+                        item.product_id,
+
+                    product_name:
+                        item.product_name,
+
+                    unit:
+                        item.unit,
+
+                    unit_price:
+                        item.unit_price,
+
+                    quantity:
+                        item.quantity,
+
+                    subtotal:
+                        item.subtotal
+
+                };
+
+            }
+        );
+
+
+
+    const {
+        error:itemError
+    } =
+    await supabaseClient
+
+    .from("order_items")
+
+    .insert(
+        orderItems
+    );
+
+
+
+    if(itemError){
+
+        console.error(
+            itemError
+        );
+
+        alert(
+            itemError.message
+        );
+
+        return;
+
+    }
+
+
+
+    await supabaseClient
+
+    .from("payments")
+
+    .insert({
+
+        order_id:
+            order.id,
+
+        payment_method:
+            "Cash on Delivery",
+
+        amount:
+            subtotal,
+
+        status:
+            "pending"
+
+    });
+
+
+
+    localStorage.removeItem(
+        "tinambacCart"
+    );
+
+
+    shoppingCart = [];
+
+
+    updateCartDisplay();
+
+
+
+    alert(
+        "Order placed successfully!\n\nOrder ID:\n"
+        +
+        order.id
+    );
+
+}
 
     const user =
         await supabaseClient.auth.getUser();
