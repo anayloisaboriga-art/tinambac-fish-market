@@ -617,7 +617,10 @@ const supabaseClient =
     );
 
 
-let shoppingCart = [];
+let shoppingCart =
+    JSON.parse(
+        localStorage.getItem("tinambacCart")
+    ) || [];
 
 
 
@@ -953,13 +956,18 @@ product.vendor_id
 
 
 
+localStorage.setItem(
+    "tinambacCart",
+    JSON.stringify(shoppingCart)
+);
+
+
 updateCartDisplay();
 
 
-
 alert(
-product.name +
-" added to cart."
+    product.name +
+    " added to cart."
 );
 
 
