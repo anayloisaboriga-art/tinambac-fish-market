@@ -605,11 +605,9 @@
 
 <script>
 
-const SUPABASE_URL =
-    "https://eyflalxgkqekrebzxxra.supabase.co";
+const SUPABASE_URL = "https://eyflalxgkqekrebzxxra.supabase.co";
 
-const SUPABASE_KEY =
-    "sb_publishable_Ha8tHUn1V9aa5OPuZNY8tQ_e8wJWK_b";
+const SUPABASE_KEY = "sb_publishable_Ha8tHUn1V9aa5OPuZNY8tQ_e8wJWK_b";
 
 
 const supabaseClient =
@@ -619,431 +617,475 @@ const supabaseClient =
     );
 
 
+let shoppingCart = [];
+
+
+
 async function loadProducts() {
 
+
     const productList =
-        document.getElementById("product-list");
+        document.getElementById(
+            "product-list"
+        );
 
 
-    productList.innerHTML = `
-        <div class="loading">
+    if (!productList) {
+
+        console.error(
+            "Product container not found"
+        );
+
+        return;
+
+    }
+
+
+
+    productList.innerHTML =
+    `
+        <div>
             Loading fresh fish...
         </div>
     `;
 
 
+
     const { data, error } =
         await supabaseClient
 
-            .from("products")
+        .from("products")
 
-            .select(`
-    id,
-    name,
-    description,
-    price,
-    unit,
-    stock_quantity,
-    image_url,
-    vendor_id,
-    vendors (
-        business_name,
-        selling_location,
-        barangay,
-        municipality
-    )
-`)
-            .gt(
-                "stock_quantity",
-                0
+        .select(`
+            id,
+            name,
+            description,
+            price,
+            unit,
+            stock_quantity,
+            image_url,
+            vendor_id,
+
+            vendors (
+                business_name,
+                selling_location,
+                barangay,
+                municipality
             )
+        `)
 
-            .order(
-                "created_at",
-                {
-                    ascending: false
-                }
-            );
+        .eq(
+            "status",
+            "active"
+        )
 
+        .gt(
+            "stock_quantity",
+            0
+        )
 
-    if (error) {
-
-        console.error(
-            "Product loading error:",
-            error
+        .order(
+            "created_at",
+            {
+                ascending:false
+            }
         );
 
 
-        productList.innerHTML = `
-            <div class="loading">
-                Unable to load products.
-                <br><br>
-                Please try again later.
-            </div>
+
+    if(error){
+
+        console.error(
+            error
+        );
+
+        productList.innerHTML =
+        `
+        <div>
+            Unable to load products.
+        </div>
         `;
 
         return;
+
     }
 
 
-    if (
+
+    if(
         !data ||
         data.length === 0
-    ) {
+    ){
 
-        productList.innerHTML = `
-            <div class="loading">
-                No fresh fish products
-                are currently available.
-                <br><br>
-                Check back soon!
-            </div>
+        productList.innerHTML =
+        `
+        <div>
+            No fresh fish products are currently available.
+        </div>
         `;
 
         return;
+
     }
+
 
 
     productList.innerHTML = "";
 
 
-    data.forEach(function(product) {
+
+    data.forEach(
+        function(product){
+
+
 
         const card =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
 
 
         card.className =
             "product-card";
 
 
-        let imageHTML;
+
+        let image =
+        `
+        <div class="no-image">
+            🐟
+        </div>
+        `;
 
 
-        if (product.image_url) {
 
-            imageHTML = `
-                <img
-                    class="product-image"
-                    src="${product.image_url}"
-                    alt="${product.name}"
-                >
+        if(product.image_url){
+
+            image =
+            `
+            <img
+            class="product-image"
+            src="${product.image_url}">
             `;
 
-        } else {
-
-            imageHTML = `
-                <div class="no-image">
-                    🐟
-                </div>
-            `;
-
         }
 
 
-        card.innerHTML = `
 
-            ${imageHTML}
-
-            <div class="product-info">
-
-                <h3>
-                    ${product.name}
-                </h3>
-
-                <p>
-                    ${
-                        product.description ||
-                        "Fresh seafood product."
-                    }
-                </p>
-
-                <div class="price">
-
-                    ₱${Number(
-                        product.price
-                    ).toFixed(2)}
-
-                    / ${product.unit}
-
-                </div>
-
-                <p><div style="margin: 10px 0; color: #555;">
-
-    <strong>
-        🏪
-        ${
+        const vendor =
             product.vendors
-                ? product.vendors.business_name
-                : "Local Fish Vendor"
-        }
-    </strong>
+            ?
+            product.vendors.business_name
+            :
+            "Local Fish Vendor";
 
-    <br>
 
-    <span>
-        📍
-        ${
+
+        const location =
             product.vendors
-                ? (
-                    product.vendors.selling_location ||
-                    product.vendors.barangay ||
-                    product.vendors.municipality ||
-                    "Tinambac, Camarines Sur"
-                )
-                : "Tinambac, Camarines Sur"
-        }
-    </span>
-
-</div>
-                    Available:
-                    ${product.stock_quantity}
-                    ${product.unit}
-                </p>
-
-                <button
-                    class="order-btn"
-                    onclick="addToCart('${product.id}')"
-function updateCartDisplay() {
-
-    const cartCount =
-        document.getElementById(
-            "cart-count"
-        );
+            ?
+            (
+            product.vendors.selling_location ||
+            product.vendors.barangay ||
+            product.vendors.municipality
+            )
+            :
+            "Tinambac, Camarines Sur";
 
 
-    const totalItems =
-        shoppingCart.reduce(
-            function(total, item) {
 
-                return total + item.quantity;
+        card.innerHTML =
+        `
 
-            },
-            0
-        );
+        ${image}
 
 
-    cartCount.textContent =
-        totalItems;
-
-}
-
-function showCart() {
-
-    if (
-        shoppingCart.length === 0
-    ) {
-
-        alert(
-            "Your shopping cart is empty."
-        );
-
-        return;
-    }
+        <div class="product-info">
 
 
-    let message =
-        "YOUR SHOPPING CART\n\n";
+            <h3>
+                ${product.name}
+            </h3>
 
 
-    let total = 0;
+            <p>
+                ${product.description || ""}
+            </p>
 
 
-    shoppingCart.forEach(
-        function(item) {
 
-            message +=
-                item.product_name +
-                "\n" +
-                item.quantity +
-                " " +
-                item.unit +
-                " × ₱" +
-                item.unit_price.toFixed(2) +
-                " = ₱" +
-                item.subtotal.toFixed(2) +
-                "\n\n";
+            <div class="price">
 
-
-            total +=
-                item.subtotal;
-
-        }
-    );
-
-
-    message +=
-        "TOTAL: ₱" +
-        total.toFixed(2);
-
-
-    alert(message);
-
-}
-                    Order Now
-
-                </button>
+                ₱${Number(product.price).toFixed(2)}
+                /
+                ${product.unit}
 
             </div>
+
+
+
+            <p>
+                Available:
+                ${product.stock_quantity}
+                ${product.unit}
+            </p>
+
+
+
+            <div>
+
+                🏪
+                <strong>
+                ${vendor}
+                </strong>
+
+                <br>
+
+                📍
+                ${location}
+
+            </div>
+
+
+
+            <br>
+
+
+            <button
+            class="order-btn"
+            onclick="addToCart('${product.id}')">
+
+                Add to Cart
+
+            </button>
+
+
+
+        </div>
 
         `;
 
 
-        productList.appendChild(card);
 
-    });
-
-}
-
-
-let shoppingCart = [];
-
-
-async function addToCart(productId) {
-
-    const { data: product, error } =
-        await supabaseClient
-
-            .from("products")
-
-            .select(`
-                id,
-                name,
-                description,
-                price,
-                unit,
-                stock_quantity,
-                image_url,
-                vendor_id,
-                vendors (
-                    business_name,
-                    selling_location,
-                    barangay,
-                    municipality
-                )
-            `)
-
-            .eq("id", productId)
-
-            .single();
-
-
-    if (error) {
-
-        console.error(
-            "Unable to get product:",
-            error
-        );
-
-        alert(
-            "Unable to add this product to your cart."
-        );
-
-        return;
-    }
-
-
-    if (
-        !product ||
-        product.stock_quantity <= 0
-    ) {
-
-        alert(
-            "This product is currently out of stock."
-        );
-
-        return;
-    }
-
-
-    const existingItem =
-        shoppingCart.find(
-            item =>
-                item.product_id === product.id
+        productList.appendChild(
+            card
         );
 
 
-    if (existingItem) {
 
-        if (
-            existingItem.quantity
-            >= product.stock_quantity
-        ) {
-
-            alert(
-                "You have reached the available stock."
-            );
-
-            return;
         }
 
-
-        existingItem.quantity += 1;
-
-
-        existingItem.subtotal =
-            existingItem.quantity *
-            existingItem.unit_price;
-
-    } else {
-
-        shoppingCart.push({
-
-            product_id:
-                product.id,
-
-            product_name:
-                product.name,
-
-            unit:
-                product.unit,
-
-            unit_price:
-                Number(product.price),
-
-            quantity:
-                1,
-
-            subtotal:
-                Number(product.price),
-
-            vendor_id:
-                product.vendor_id,
-
-            vendor_name:
-                product.vendors
-                    ? product.vendors.business_name
-                    : "Local Fish Vendor"
-
-        });
-
-    }
-
-
-    updateCartDisplay();
-
-
-    alert(
-        product.name +
-        " has been added to your cart."
     );
+
+
 
 }
 
 
-function vendorRegistration() {
 
-    alert(
-        "Vendor registration will be available soon."
-    );
+
+async function addToCart(productId){
+
+
+const {data:product,error}=
+
+await supabaseClient
+
+.from("products")
+
+.select(`
+id,
+name,
+price,
+unit,
+stock_quantity,
+vendor_id
+`)
+
+.eq(
+"id",
+productId
+)
+
+.single();
+
+
+
+if(error){
+
+console.error(error);
+
+alert(
+"Cannot add product."
+);
+
+return;
 
 }
+
+
+
+
+shoppingCart.push({
+
+product_id:
+product.id,
+
+product_name:
+product.name,
+
+unit:
+product.unit,
+
+unit_price:
+Number(product.price),
+
+quantity:
+1,
+
+subtotal:
+Number(product.price),
+
+vendor_id:
+product.vendor_id
+
+});
+
+
+
+updateCartDisplay();
+
+
+
+alert(
+product.name +
+" added to cart."
+);
+
+
+
+}
+
+
+
+
+function updateCartDisplay(){
+
+
+const count =
+document.getElementById(
+"cart-count"
+);
+
+
+
+if(count){
+
+count.textContent =
+shoppingCart.length;
+
+}
+
+
+
+}
+
+
+
+
+
+function showCart(){
+
+
+if(
+shoppingCart.length === 0
+){
+
+alert(
+"Your cart is empty."
+);
+
+return;
+
+}
+
+
+
+let message =
+"YOUR CART\n\n";
+
+
+
+let total = 0;
+
+
+
+shoppingCart.forEach(
+item=>{
+
+
+message +=
+
+item.product_name +
+
+"\n" +
+
+item.quantity +
+
+" " +
+
+item.unit +
+
+" x ₱" +
+
+item.unit_price +
+
+"\n\n";
+
+
+
+total +=
+item.subtotal;
+
+
+
+}
+
+);
+
+
+
+message +=
+"TOTAL: ₱" + total;
+
+
+
+alert(
+message
+);
+
+
+
+}
+
+
+
+
+function vendorRegistration(){
+
+alert(
+"Vendor registration will be available soon."
+);
+
+}
+
 
 
 loadProducts();
 
-</script>
 
+
+</script>
 
 </body>
 
