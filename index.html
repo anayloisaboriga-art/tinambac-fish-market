@@ -2091,133 +2091,47 @@ async function checkout(){
 }
 
 </script>
+
+
+<script>
+
+async function checkout() {
+
+    // checkout code
+
+}
+
+</script>
+
+
 <script>
 
 function showLogin() {
 
-    const modal = document.getElementById("login-modal");
-
-    if (modal) {
-        modal.style.display = "flex";
-    } else {
-        alert("Login window was not found.");
-    }
+    // login code
 
 }
-
 
 function closeLogin() {
 
-    const modal = document.getElementById("login-modal");
-
-    if (modal) {
-        modal.style.display = "none";
-    }
+    // login code
 
 }
-
 
 async function loginUser() {
 
-    const email =
-        document.getElementById("login-email").value.trim();
-
-    const password =
-        document.getElementById("login-password").value;
-
-
-    if (!email || !password) {
-
-        alert("Please enter your email and password.");
-
-        return;
-
-    }
-
-
-    const { data, error } =
-        await supabaseClient.auth.signInWithPassword({
-
-            email: email,
-
-            password: password
-
-        });
-
-
-    if (error) {
-
-        console.error("Login error:", error);
-
-        alert(
-            "Login failed:\n\n" +
-            error.message
-        );
-
-        return;
-
-    }
-
-
-    alert("Login successful!");
-
-    closeLogin();
+    // login code
 
 }
-
 
 async function registerUser() {
 
-    const email =
-        document.getElementById("login-email").value.trim();
-
-    const password =
-        document.getElementById("login-password").value;
-
-
-    if (!email || !password) {
-
-        alert("Please enter an email and password.");
-
-        return;
-
-    }
-
-
-    const { data, error } =
-        await supabaseClient.auth.signUp({
-
-            email: email,
-
-            password: password
-
-        });
-
-
-    if (error) {
-
-        console.error("Registration error:", error);
-
-        alert(
-            "Registration failed:\n\n" +
-            error.message
-        );
-
-        return;
-
-    }
-
-
-    alert(
-        "Account created successfully!\n\n" +
-        "If email confirmation is enabled, " +
-        "please check your email."
-    );
+    // registration code
 
 }
 
-</script>    
-    
-</body>
+</script>
 
+
+</body>
 </html>
