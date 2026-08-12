@@ -1051,18 +1051,8 @@ shoppingCart.length;
 
 
 function showCart(){
-async function checkout(){
 
-    alert("Checkout button is working!");
-
-    if(shoppingCart.length === 0){
-
-        alert("Your cart is empty.");
-
-        return;
-
-    }
-
+    
 function showLogin(){
 
     document.getElementById(
@@ -2090,47 +2080,133 @@ async function checkout(){
 
 }
 
-</script>
+    function showLogin(){
 
+    document.getElementById(
+        "login-modal"
+    ).style.display = "flex";
+
+}
+
+
+function closeLogin(){
+
+    document.getElementById(
+        "login-modal"
+    ).style.display = "none";
+
+}
+
+
+async function loginUser(){
+
+    const email =
+    document.getElementById(
+        "login-email"
+    ).value;
+
+
+    const password =
+    document.getElementById(
+        "login-password"
+    ).value;
+
+
+    const {
+        data,
+        error
+    } =
+    await supabase.auth.signInWithPassword({
+
+        email: email,
+
+        password: password
+
+    });
+
+
+    if(error){
+
+        alert(error.message);
+
+        return;
+
+    }
+
+
+    alert(
+        "Login successful!"
+    );
+
+
+    closeLogin();
+
+}
+
+
+
+async function registerUser(){
+
+    const email =
+    document.getElementById(
+        "login-email"
+    ).value;
+
+
+    const password =
+    document.getElementById(
+        "login-password"
+    ).value;
+
+
+    const {
+        data,
+        error
+    } =
+    await supabase.auth.signUp({
+
+        email: email,
+
+        password: password
+
+    });
+
+
+    if(error){
+
+        alert(error.message);
+
+        return;
+
+    }
+
+
+    alert(
+        "Account created successfully!"
+    );
+
+}
+    
+</script>
 
 <script>
 
-async function checkout(){
-
-    // checkout code
-
-}
-
-</script>
-
-
-<script>
-
-function showLogin() {
-
-    // login code
-
-}
-
-function closeLogin() {
-
-    // login code
-
-}
-
-async function loginUser() {
-
-    // login code
-
-}
-
-async function registerUser() {
-
-    // registration code
-
-}
+Supabase
+loadProducts
+addToCart
+showCart
+checkout
+vendorRegistration
+showLogin
+closeLogin
+loginUser
+registerUser
 
 </script>
+
+</body>
+</html>
+
 
 
 </body>
