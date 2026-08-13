@@ -3,376 +3,341 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-<title>Tinambac Fish Market</title>
+    <title>Tinambac Fish Market</title>
 
 
-<style>
+    <style>
 
-*{
-    box-sizing:border-box;
-}
+        * {
+            box-sizing: border-box;
+        }
 
 
-body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:#f5f8fa;
-    color:#1f2933;
-}
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f8fa;
+            color: #1f2933;
+        }
 
 
-header{
-    background:#087f8c;
-    color:white;
-    padding:18px 30px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    flex-wrap:wrap;
-}
+        header {
+            background: #087f8c;
+            color: white;
+            padding: 18px 30px;
 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-.logo{
-    font-size:24px;
-    font-weight:bold;
-}
 
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
 
-nav a{
-    color:white;
-    text-decoration:none;
-    margin-left:15px;
-}
 
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 15px;
+        }
 
-#cart-bar{
 
-    background:white;
-    color:#333;
-    padding:12px 20px;
-    border-radius:8px;
+        .hero {
 
-}
+            background:
+                linear-gradient(
+                    rgba(0, 90, 100, 0.75),
+                    rgba(0, 90, 100, 0.75)
+                ),
+                url("https://images.unsplash.com/photo-1544943910-4c1dc44aab44?auto=format&fit=crop&w=1600&q=80");
 
+            background-size: cover;
+            background-position: center;
 
-button{
+            min-height: 430px;
 
-    cursor:pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-}
+            text-align: center;
 
+            color: white;
 
-.hero{
+            padding: 40px 20px;
+        }
 
-background:
-linear-gradient(
-rgba(0,90,100,.75),
-rgba(0,90,100,.75)
-),
-url("https://images.unsplash.com/photo-1544943910-4c1dc44aab44?auto=format&fit=crop&w=1600&q=80");
 
+        .hero-content {
+            max-width: 800px;
+        }
 
-background-size:cover;
-background-position:center;
 
-min-height:430px;
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
 
-display:flex;
-align-items:center;
-justify-content:center;
 
-text-align:center;
+        .hero p {
+            font-size: 20px;
+            line-height: 1.6;
+        }
 
-color:white;
 
-padding:40px 20px;
+        .button {
 
-}
+            display: inline-block;
 
+            margin-top: 20px;
 
+            padding: 14px 28px;
 
-.hero-content{
+            background: #f4b942;
 
-max-width:800px;
+            color: #17202a;
 
-}
+            text-decoration: none;
 
+            border-radius: 8px;
 
-.hero h1{
+            font-weight: bold;
 
-font-size:48px;
+            border: none;
 
-}
+            cursor: pointer;
+        }
 
 
-.hero p{
+        .section {
 
-font-size:20px;
-line-height:1.6;
+            padding: 50px 25px;
 
-}
+            text-align: center;
+        }
 
 
+        .section h2 {
 
-.button{
+            color: #087f8c;
 
-display:inline-block;
+            font-size: 32px;
+        }
 
-margin-top:20px;
 
-padding:14px 28px;
+        .cards {
 
-background:#f4b942;
+            max-width: 1100px;
 
-color:#17202a;
+            margin: 30px auto 0;
 
-border-radius:8px;
+            display: flex;
 
-text-decoration:none;
+            gap: 20px;
 
-font-weight:bold;
+            justify-content: center;
 
-border:none;
+            flex-wrap: wrap;
+        }
 
-}
 
+        .card {
 
+            background: white;
 
-.section{
+            width: 300px;
 
-padding:50px 25px;
+            padding: 25px;
 
-text-align:center;
+            border-radius: 12px;
 
-}
+            box-shadow:
+                0 3px 12px rgba(0,0,0,0.08);
+        }
 
 
+        .card h3 {
 
-.section h2{
+            color: #087f8c;
+        }
 
-color:#087f8c;
 
-font-size:32px;
+        /* PRODUCTS */
 
-}
+        .products {
 
+            max-width: 1100px;
 
+            margin: 30px auto;
 
-.cards,
-.products{
+            display: flex;
 
-max-width:1100px;
+            gap: 20px;
 
-margin:30px auto;
+            justify-content: center;
 
-display:flex;
+            flex-wrap: wrap;
+        }
 
-gap:20px;
 
-justify-content:center;
+        .product-card {
 
-flex-wrap:wrap;
+            background: white;
 
-}
+            width: 300px;
 
+            border-radius: 12px;
 
+            overflow: hidden;
 
-.card,
-.product-card{
+            box-shadow:
+                0 3px 12px rgba(0,0,0,0.08);
 
-background:white;
+            text-align: left;
+        }
 
-width:300px;
 
-border-radius:12px;
+        .product-image {
 
-padding:20px;
+            width: 100%;
 
-box-shadow:
-0 3px 12px rgba(0,0,0,.08);
+            height: 190px;
 
-}
+            object-fit: cover;
 
+            background: #dff3f7;
+        }
 
 
-.card h3,
-.product-info h3{
+        .no-image {
 
-color:#087f8c;
+            width: 100%;
 
-}
+            height: 190px;
 
+            display: flex;
 
+            justify-content: center;
 
-.product-card{
+            align-items: center;
 
-padding:0;
+            font-size: 65px;
 
-overflow:hidden;
+            background: #dff3f7;
+        }
 
-text-align:left;
 
-}
+        .product-info {
 
+            padding: 20px;
+        }
 
 
-.product-image{
+        .product-info h3 {
 
-width:100%;
+            color: #087f8c;
 
-height:190px;
+            margin-top: 0;
+        }
 
-object-fit:cover;
 
-}
+        .price {
 
+            color: #d88700;
 
+            font-size: 20px;
 
-.no-image{
+            font-weight: bold;
 
-height:190px;
+            margin: 12px 0;
+        }
 
-display:flex;
 
-align-items:center;
+        .order-btn {
 
-justify-content:center;
+            width: 100%;
 
-font-size:65px;
+            padding: 11px;
 
-background:#dff3f7;
+            background: #087f8c;
 
-}
+            color: white;
 
+            border: none;
 
+            border-radius: 7px;
 
-.product-info{
+            cursor: pointer;
 
-padding:20px;
+            font-weight: bold;
+        }
 
-}
 
+        .order-btn:hover {
 
+            background: #066673;
+        }
 
-.price{
 
-color:#d88700;
+        .loading {
 
-font-size:20px;
+            width: 100%;
 
-font-weight:bold;
+            text-align: center;
 
-}
+            padding: 30px;
 
+            color: #666;
+        }
 
 
-.order-btn{
+        footer {
 
-width:100%;
+            background: #12343b;
 
-padding:12px;
+            color: white;
 
-background:#087f8c;
+            text-align: center;
 
-color:white;
+            padding: 25px;
 
-border:none;
+            margin-top: 30px;
+        }
 
-border-radius:7px;
 
-}
+        @media (max-width: 700px) {
 
+            header {
 
+                flex-direction: column;
 
-footer{
+                gap: 12px;
+            }
 
-background:#12343b;
 
-color:white;
+            nav a {
 
-text-align:center;
+                margin: 0 8px;
+            }
 
-padding:25px;
 
-}
+            .hero h1 {
 
+                font-size: 34px;
+            }
 
+        }
 
-#login-modal{
-
-display:none;
-
-position:fixed;
-
-top:0;
-left:0;
-
-width:100%;
-height:100%;
-
-background:rgba(0,0,0,.5);
-
-align-items:center;
-
-justify-content:center;
-
-z-index:9999;
-
-}
-
-
-
-.login-box{
-
-background:white;
-
-padding:30px;
-
-border-radius:10px;
-
-width:320px;
-
-}
-
-
-
-.login-box input{
-
-width:100%;
-
-padding:10px;
-
-margin:5px 0;
-
-}
-
-
-
-@media(max-width:700px){
-
-header{
-
-flex-direction:column;
-
-gap:15px;
-
-}
-
-
-.hero h1{
-
-font-size:34px;
-
-}
-
-}
-
-
-</style>
+    </style>
 
 </head>
 
@@ -381,172 +346,162 @@ font-size:34px;
 
 
 <header>
+   
+    <nav>
 
+    <a href="#home">
+        Home
+    </a>
 
-<div class="logo">
+    <a href="#products">
+        Fish & Seafood
+    </a>
 
-🐟 Tinambac Fish Market
+    <a href="#vendors">
+        Vendors
+    </a>
 
-</div>
+    <a href="#about">
+        About
+    </a>
 
-
-
-<nav>
-
-<a href="#home">
-Home
-</a>
-
-
-<a href="#products">
-Fish & Seafood
-</a>
-
-
-<a href="#vendors">
-Vendors
-</a>
-
-
-<a href="#about">
-About
-</a>
-
-
-<a href="#" onclick="showLogin()">
-Login
-</a>
+    <a href="#" onclick="showLogin()">
+        Login
+    </a>
 
 </nav>
 
 
+    <div class="logo">
+        🐟 Tinambac Fish Market
+    </div>
+ <div
+    id="cart-bar"
+    style="
+        background:#ffffff;
+        padding:15px 25px;
+        text-align:right;
+        box-shadow:0 2px 8px rgba(0,0,0,0.08);
+        position:sticky;
+        top:0;
+        z-index:100;
+    ">
 
-<div id="cart-bar">
+    🛒 Cart:
+    <strong id="cart-count">0</strong>
+    item(s)
 
-
-🛒 Cart:
-
-<strong id="cart-count">
-0
-</strong>
-
-item(s)
-
-
-<br>
-
-
-<button onclick="showCart()">
+   <button onclick="showCart()">
 View Cart
 </button>
-
 
 <button onclick="checkout()">
 Checkout
 </button>
 
-
 </div>
-
-
+    
 </header>
+
+
+
 <section class="hero" id="home">
 
-<div class="hero-content">
+    <div class="hero-content">
 
-<h1>
-Fresh Catch. Local Vendors. Easy Ordering.
-</h1>
-
-
-<p>
-Welcome to Tinambac Fish Market —
-an online marketplace connecting customers
-with fish vendors in Tinambac, Camarines Sur.
-</p>
+        <h1>
+            Fresh Catch. Local Vendors. Easy Ordering.
+        </h1>
 
 
-<a href="#products" class="button">
+        <p>
 
-Browse Fresh Fish
+            Welcome to Tinambac Fish Market —
+            an online marketplace connecting
+            customers with fish vendors in
+            Tinambac, Camarines Sur.
 
-</a>
+        </p>
 
 
-</div>
+        <a
+            href="#products"
+            class="button">
+
+            Browse Fresh Fish
+
+        </a>
+
+    </div>
 
 </section>
-
 
 
 
 <section class="section" id="about">
 
-
-<h2>
-What You Can Do
-</h2>
-
+    <h2>
+        What You Can Do
+    </h2>
 
 
-<div class="cards">
+    <div class="cards">
 
 
-<div class="card">
+        <div class="card">
 
-<h3>
-🐟 Buy Fresh Fish
-</h3>
+            <h3>
+                🐟 Buy Fresh Fish
+            </h3>
 
+            <p>
 
-<p>
-Browse fresh fish and seafood products
-offered by local vendors in Tinambac.
-</p>
+                Browse fresh fish and seafood
+                products offered by local vendors
+                in Tinambac.
 
+            </p>
 
-</div>
-
-
-
-<div class="card">
-
-<h3>
-🏪 Local Vendors
-</h3>
-
-
-<p>
-Discover fish vendors and seafood sellers
-operating within Tinambac.
-</p>
-
-
-</div>
+        </div>
 
 
 
-<div class="card">
+        <div class="card">
 
-<h3>
-🛒 Easy Ordering
-</h3>
+            <h3>
+                🏪 Local Vendors
+            </h3>
+
+            <p>
+
+                Discover fish vendors and seafood
+                sellers operating within Tinambac.
+
+            </p>
+
+        </div>
 
 
-<p>
-Place your order online and receive updates
-about your purchase.
-</p>
+
+        <div class="card">
+
+            <h3>
+                🛒 Easy Ordering
+            </h3>
+
+            <p>
+
+                Place your order online and receive
+                updates about your purchase.
+
+            </p>
+
+        </div>
 
 
-</div>
-
-
-</div>
-
+    </div>
 
 </section>
-
 
 
 
@@ -703,7 +658,7 @@ const SUPABASE_URL = "https://eyflalxgkqekrebzxxra.supabase.co";
 const SUPABASE_KEY = "sb_publishable_Ha8tHUn1V9aa5OPuZNY8tQ_e8wJWK_b";
 
 
-const supabase =
+const supabaseClient =
     window.supabase.createClient(
         SUPABASE_URL,
         SUPABASE_KEY
@@ -748,7 +703,7 @@ async function loadProducts() {
 
 
     const { data, error } =
-        await supabase
+        await supabaseClient
 
         .from("products")
 
@@ -985,7 +940,7 @@ async function addToCart(productId){
 
 const {data:product,error}=
 
-await supabase
+await supabaseClient
 
 .from("products")
 
@@ -1096,8 +1051,18 @@ shoppingCart.length;
 
 
 function showCart(){
+async function checkout(){
 
-    
+    alert("Checkout button is working!");
+
+    if(shoppingCart.length === 0){
+
+        alert("Your cart is empty.");
+
+        return;
+
+    }
+
 function showLogin(){
 
     document.getElementById(
@@ -1134,7 +1099,7 @@ async function loginUser(){
         data,
         error
     } =
-    await supabase.auth.signInWithPassword({
+    await supabaseClient.auth.signInWithPassword({
 
         email: email,
 
@@ -1183,7 +1148,7 @@ async function registerUser(){
         data,
         error
     } =
-    await supabase.auth.signUp({
+    await supabaseClient.auth.signUp({
 
         email: email,
 
@@ -1212,10 +1177,7 @@ async function registerUser(){
     const {
         data: userData,
         error: userError
-
-        async function checkout(){
-
-} = await supabase.auth.getUser();
+    } = await supabaseClient.auth.getUser();
 
 
     if(userError || !userData.user){
@@ -1238,7 +1200,7 @@ async function registerUser(){
         data: customer,
         error: customerError
     } =
-    await supabase
+    await supabaseClient
 
     .from("customers")
 
@@ -1290,7 +1252,7 @@ async function registerUser(){
         data: order,
         error: orderError
     } =
-    await supabase
+    await supabaseClient
 
     .from("orders")
 
@@ -1381,7 +1343,7 @@ async function registerUser(){
     const {
         error:itemError
     } =
-    await supabase
+    await supabaseClient
 
     .from("order_items")
 
@@ -1407,7 +1369,7 @@ async function registerUser(){
 
 
 
-    await supabase
+    await supabaseClient
 
     .from("payments")
 
@@ -1449,6 +1411,20 @@ async function registerUser(){
 
 }
 
+    const user =
+        await supabaseClient.auth.getUser();
+
+
+    if(!user.data.user){
+
+        alert(
+            "Please login before checkout."
+        );
+
+        return;
+
+    }
+
 
     const userId =
         user.data.user.id;
@@ -1457,7 +1433,7 @@ async function registerUser(){
 
     const {data:customer,error:customerError}
         =
-        await supabase
+        await supabaseClient
 
         .from("customers")
 
@@ -1513,7 +1489,7 @@ async function registerUser(){
 
     const {data:order,error:orderError}
         =
-        await supabase
+        await supabaseClient
 
         .from("orders")
 
@@ -1601,7 +1577,7 @@ async function registerUser(){
 
     const {error:itemError}
         =
-        await supabase
+        await supabaseClient
 
         .from("order_items")
 
@@ -1628,7 +1604,7 @@ async function registerUser(){
 
 
 
-    await supabase
+    await supabaseClient
 
     .from("payments")
 
@@ -1762,13 +1738,29 @@ loadProducts();
 
 
 </script>
+    
+<script>
+
+async function checkout(){
+
+
+    if(shoppingCart.length === 0){
+
+        alert(
+            "Your cart is empty."
+        );
+
+        return;
+
+    }
+
 
 
     const {
         data:userData,
         error:userError
     } =
-    await supabase.auth.getUser();
+    await supabaseClient.auth.getUser();
 
 
 
@@ -1795,7 +1787,7 @@ loadProducts();
         data:customer,
         error:customerError
     } =
-    await supabase
+    await supabaseClient
 
     .from("customers")
 
@@ -1832,7 +1824,7 @@ loadProducts();
         data:address,
         error:addressError
     } =
-    await supabase
+    await supabaseClient
 
     .from("delivery_addresses")
 
@@ -1904,7 +1896,7 @@ loadProducts();
         error:orderError
     }
     =
-    await supabase
+    await supabaseClient
 
     .from("orders")
 
@@ -2003,7 +1995,7 @@ loadProducts();
         error:itemError
     }
     =
-    await supabase
+    await supabaseClient
 
     .from("order_items")
 
@@ -2035,7 +2027,7 @@ loadProducts();
         error:paymentError
     }
     =
-    await supabase
+    await supabaseClient
 
     .from("payments")
 
@@ -2098,133 +2090,47 @@ loadProducts();
 
 }
 
-    function showLogin(){
-
-    document.getElementById(
-        "login-modal"
-    ).style.display = "flex";
-
-}
-
-
-function closeLogin(){
-
-    document.getElementById(
-        "login-modal"
-    ).style.display = "none";
-
-}
-
-
-async function loginUser(){
-
-    const email =
-    document.getElementById(
-        "login-email"
-    ).value;
-
-
-    const password =
-    document.getElementById(
-        "login-password"
-    ).value;
-
-
-    const {
-        data,
-        error
-    } =
-    await supabase.auth.signInWithPassword({
-
-        email: email,
-
-        password: password
-
-    });
-
-
-    if(error){
-
-        alert(error.message);
-
-        return;
-
-    }
-
-
-    alert(
-        "Login successful!"
-    );
-
-
-    closeLogin();
-
-}
-
-
-
-async function registerUser(){
-
-    const email =
-    document.getElementById(
-        "login-email"
-    ).value;
-
-
-    const password =
-    document.getElementById(
-        "login-password"
-    ).value;
-
-
-    const {
-        data,
-        error
-    } =
-    await supabase.auth.signUp({
-
-        email: email,
-
-        password: password
-
-    });
-
-
-    if(error){
-
-        alert(error.message);
-
-        return;
-
-    }
-
-
-    alert(
-        "Account created successfully!"
-    );
-
-}
-    
 </script>
+
 
 <script>
 
-Supabase
-loadProducts
-addToCart
-showCart
-checkout
-vendorRegistration
-showLogin
-closeLogin
-loginUser
-registerUser
+async function checkout() {
+
+    // checkout code
+
+}
 
 </script>
 
-</body>
-</html>
 
+<script>
+
+function showLogin() {
+
+    // login code
+
+}
+
+function closeLogin() {
+
+    // login code
+
+}
+
+async function loginUser() {
+
+    // login code
+
+}
+
+async function registerUser() {
+
+    // registration code
+
+}
+
+</script>
 
 
 </body>
