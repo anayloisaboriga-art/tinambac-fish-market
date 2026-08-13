@@ -1044,64 +1044,51 @@ product.name+
 
 function showCart(){
 
+    if(shoppingCart.length === 0){
 
-if(shoppingCart.length===0){
+        alert(
+            "Your cart is empty."
+        );
 
-alert(
-"Your cart is empty."
-);
+        return;
 
-return;
-
-}
-
+    }
 
 
-let message =
-"YOUR CART\n\n";
+    let message =
+    "YOUR CART\n\n";
 
 
-let total=0;
+    let total = 0;
 
 
+    shoppingCart.forEach(item=>{
 
-shoppingCart.forEach(item=>{
-
-
-message +=
-
-item.product_name+
-"\n"+
-item.quantity+
-" "+
-item.unit+
-" x ₱"+
-item.unit_price+
-"\n\n";
+        message +=
+        item.product_name +
+        "\n" +
+        item.quantity +
+        " " +
+        item.unit +
+        " x ₱" +
+        item.unit_price +
+        "\n\n";
 
 
-total += item.subtotal;
+        total += item.subtotal;
 
 
-});
+    });
 
 
-
-message +=
-"TOTAL: ₱"+
-total;
+    message +=
+    "TOTAL: ₱" + total;
 
 
-
-alert(message);
-
+    alert(message);
 
 }
-</body>
-</html>
-    <script>
-
-
+    
 function showLogin(){
 
     document.getElementById(
