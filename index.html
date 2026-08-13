@@ -1167,7 +1167,10 @@ async function registerUser(){
     const {
         data: userData,
         error: userError
-    } = await supabase.auth.getUser();
+
+        async function checkout(){
+
+} = await supabase.auth.getUser();
 
 
     if(userError || !userData.user){
@@ -1400,20 +1403,6 @@ async function registerUser(){
     );
 
 }
-async function checkout(){
-    const user =
-        await supabase.auth.getUser();
-
-
-    if(!user.data.user){
-
-        alert(
-            "Please login before checkout."
-        );
-
-        return;
-
-    }
 
 
     const userId =
@@ -1728,22 +1717,6 @@ loadProducts();
 
 
 </script>
-    
-<script>
-
-async function checkout(){
-
-
-    if(shoppingCart.length === 0){
-
-        alert(
-            "Your cart is empty."
-        );
-
-        return;
-
-    }
-
 
 
     const {
