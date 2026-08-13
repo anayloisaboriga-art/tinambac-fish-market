@@ -550,509 +550,432 @@ about your purchase.
 
 
 
+<!-- REAL PRODUCTS FROM SUPABASE -->
 
-<section class="section" id="products">
-
-
-<h2>
-Fresh Fish & Seafood
-</h2>
+<section
+    class="section"
+    id="products">
 
 
-<p>
-Products from participating fish vendors
-in Tinambac.
-</p>
+    <h2>
+        Fresh Fish & Seafood
+    </h2>
 
 
-
-<div class="products" id="product-list">
-
-
-<div class="loading">
-
-Loading fresh fish...
-
-</div>
+    <p>
+        Products from participating fish vendors
+        in Tinambac.
+    </p>
 
 
-</div>
+    <div
+        class="products"
+        id="product-list">
 
+        <div class="loading">
 
-</section>
+            Loading fresh fish...
 
+        </div>
 
-
-
-
-<section class="section" id="vendors">
-
-
-<h2>
-For Fish Vendors
-</h2>
-
-
-<p>
-
-Are you a fish vendor in Tinambac?
-
-Join our marketplace and showcase
-your products online.
-
-</p>
-
-
-
-<button class="button"
-onclick="vendorRegistration()">
-
-Become a Vendor
-
-</button>
+    </div>
 
 
 </section>
 
 
 
+<section
+    class="section"
+    id="vendors">
 
 
-
-<!-- LOGIN MODAL -->
-
-<div id="login-modal">
-
-
-<div class="login-box">
+    <h2>
+        For Fish Vendors
+    </h2>
 
 
-<h2>
-Customer Login
-</h2>
+    <p>
+
+        Are you a fish vendor in Tinambac?
+
+        Join our marketplace and showcase
+        your products online.
+
+    </p>
 
 
+    <button
+        class="button"
+        onclick="vendorRegistration()">
+
+        Become a Vendor
+
+    </button>
+
+
+</section>
+
+<!-- LOGIN MODAL HERE -->
+<div id="login-modal"
+style="
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.5);
+align-items:center;
+justify-content:center;
+z-index:9999;
+">
+
+<div style="
+background:white;
+padding:30px;
+border-radius:10px;
+width:320px;
+">
+
+<h2>Customer Login</h2>
 
 <input
 id="login-email"
 type="email"
 placeholder="Email"
+style="width:100%;padding:10px;margin:5px 0;"
 >
-
 
 <input
 id="login-password"
 type="password"
 placeholder="Password"
+style="width:100%;padding:10px;margin:5px 0;"
 >
 
-
-
 <button onclick="loginUser()">
-
 Login
-
 </button>
-
-
 
 <button onclick="registerUser()">
-
 Create Account
-
 </button>
-
-
 
 <button onclick="closeLogin()">
-
 Close
-
 </button>
 
-
-
 </div>
 
-
 </div>
-
-
-
-
-
-
-
+    
 <footer>
 
-
-<p>
-
-<strong>
-Tinambac Fish Market
-</strong>
-
-</p>
+    <p>
+        <strong>
+            Tinambac Fish Market
+        </strong>
+    </p>
 
 
-
-<p>
-Tinambac, Camarines Sur, Philippines
-</p>
-
+    <p>
+        Tinambac, Camarines Sur, Philippines
+    </p>
 
 
-<p>
-© 2026 Tinambac Fish Market
-</p>
-
+    <p>
+        © 2026 Tinambac Fish Market
+    </p>
 
 </footer>
+
+
+
+<!-- SUPABASE -->
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-
 <script>
-
 
 const SUPABASE_URL = "https://eyflalxgkqekrebzxxra.supabase.co";
 
 const SUPABASE_KEY = "sb_publishable_Ha8tHUn1V9aa5OPuZNY8tQ_e8wJWK_b";
 
 
-const supabaseClient =
+const supabase =
     window.supabase.createClient(
         SUPABASE_URL,
         SUPABASE_KEY
     );
 
 
-
 let shoppingCart =
-JSON.parse(
-localStorage.getItem("tinambacCart")
-) || [];
+    JSON.parse(
+        localStorage.getItem("tinambacCart")
+    ) || [];
 
 
 
+async function loadProducts() {
 
 
-function updateCartDisplay(){
+    const productList =
+        document.getElementById(
+            "product-list"
+        );
 
-const count =
-document.getElementById(
-"cart-count"
-);
 
+    if (!productList) {
 
-if(count){
+        console.error(
+            "Product container not found"
+        );
 
-count.textContent =
-shoppingCart.length;
+        return;
 
-}
+    }
 
 
-}
 
+    productList.innerHTML =
+    `
+        <div>
+            Loading fresh fish...
+        </div>
+    `;
 
 
 
+    const { data, error } =
+        await supabase
 
+        .from("products")
 
-async function loadProducts(){
+        .select(`
+            id,
+            name,
+            description,
+            price,
+            unit,
+            stock_quantity,
+            image_url,
+            vendor_id,
 
+            vendors (
+                business_name,
+                selling_location,
+                barangay,
+                municipality
+            )
+        `)
 
+        .eq(
+            "status",
+            "active"
+        )
 
-const productList =
-document.getElementById(
-"product-list"
-);
+        .gt(
+            "stock_quantity",
+            0
+        )
 
+        .order(
+            "created_at",
+            {
+                ascending:false
+            }
+        );
 
 
-try{
 
+    if(error){
 
-const {
-data,
-error
-}
-=
-await supabaseClient
+        console.error(
+            error
+        );
 
-.from("products")
+        productList.innerHTML =
+        `
+        <div>
+            Unable to load products.
+        </div>
+        `;
 
-.select(`
+        return;
 
-id,
-name,
-description,
-price,
-unit,
-stock_quantity,
-image_url,
-vendor_id,
+    }
 
-vendors(
-business_name,
-selling_location,
-barangay,
-municipality
-)
 
-`)
 
-.eq(
-"status",
-"active"
-)
+    if(
+        !data ||
+        data.length === 0
+    ){
 
-.gt(
-"stock_quantity",
-0
-)
+        productList.innerHTML =
+        `
+        <div>
+            No fresh fish products are currently available.
+        </div>
+        `;
 
-.order(
-"created_at",
-{
-ascending:false
-}
-);
+        return;
 
+    }
 
 
 
+    productList.innerHTML = "";
 
-if(error){
 
-console.error(error);
 
+    data.forEach(
+        function(product){
 
-productList.innerHTML =
-`
-<p>
-Unable to load products.
-</p>
-`;
 
 
-return;
+        const card =
+            document.createElement(
+                "div"
+            );
 
-}
 
+        card.className =
+            "product-card";
 
 
 
+        let image =
+        `
+        <div class="no-image">
+            🐟
+        </div>
+        `;
 
-if(!data || data.length===0){
 
 
-productList.innerHTML =
-`
-<p>
-No fresh fish products are currently available.
-</p>
-`;
+        if(product.image_url){
 
+            image =
+            `
+            <img
+            class="product-image"
+            src="${product.image_url}">
+            `;
 
-return;
+        }
 
 
-}
 
+        const vendor =
+            product.vendors
+            ?
+            product.vendors.business_name
+            :
+            "Local Fish Vendor";
 
 
 
+        const location =
+            product.vendors
+            ?
+            (
+            product.vendors.selling_location ||
+            product.vendors.barangay ||
+            product.vendors.municipality
+            )
+            :
+            "Tinambac, Camarines Sur";
 
-productList.innerHTML="";
 
 
+        card.innerHTML =
+        `
 
+        ${image}
 
 
-data.forEach(product=>{
+        <div class="product-info">
 
 
+            <h3>
+                ${product.name}
+            </h3>
 
-let image =
 
-`
-<div class="no-image">
-🐟
-</div>
-`;
+            <p>
+                ${product.description || ""}
+            </p>
 
 
 
-if(product.image_url){
+            <div class="price">
 
+                ₱${Number(product.price).toFixed(2)}
+                /
+                ${product.unit}
 
-image =
-`
-<img 
-class="product-image"
-src="${product.image_url}">
-`;
+            </div>
 
-}
 
 
+            <p>
+                Available:
+                ${product.stock_quantity}
+                ${product.unit}
+            </p>
 
-let vendor =
-"Local Fish Vendor";
 
 
-if(product.vendors){
+            <div>
 
-vendor =
-product.vendors.business_name;
+                🏪
+                <strong>
+                ${vendor}
+                </strong>
 
-}
+                <br>
 
+                📍
+                ${location}
 
+            </div>
 
-let location =
-"Tinambac, Camarines Sur";
 
 
+            <br>
 
-if(product.vendors){
 
-location =
-product.vendors.selling_location
-||
-product.vendors.barangay
-||
-product.vendors.municipality;
+            <button
+            class="order-btn"
+            onclick="addToCart('${product.id}')">
 
-}
+                Add to Cart
 
+            </button>
 
 
 
+        </div>
 
-const card =
-document.createElement(
-"div"
-);
+        `;
 
 
 
-card.className =
-"product-card";
+        productList.appendChild(
+            card
+        );
 
 
 
+        }
 
-card.innerHTML =
-
-`
-
-${image}
-
-
-<div class="product-info">
-
-
-<h3>
-
-${product.name}
-
-</h3>
-
-
-
-<p>
-
-${product.description || ""}
-
-</p>
-
-
-
-<div class="price">
-
-₱${Number(product.price).toFixed(2)}
-/
-${product.unit}
-
-</div>
-
-
-
-<p>
-
-Available:
-${product.stock_quantity}
-${product.unit}
-
-</p>
-
-
-
-<p>
-
-🏪
-<strong>
-${vendor}
-</strong>
-
-<br>
-
-📍
-${location}
-
-</p>
-
-
-
-<button
-class="order-btn"
-onclick="addToCart('${product.id}')">
-
-Add to Cart
-
-</button>
-
-
-
-</div>
-
-`;
-
-
-
-
-productList.appendChild(card);
-
-
-
-});
+    );
 
 
 
 }
-
-catch(error){
-
-console.error(error);
-
-
-productList.innerHTML =
-`
-<p>
-System error loading products.
-</p>
-`;
-
-
-}
-
-
-
-}
-
-
 
 
 
@@ -1060,24 +983,19 @@ System error loading products.
 async function addToCart(productId){
 
 
+const {data:product,error}=
 
-const {
-data:product,
-error
-}
-=
-await supabaseClient
+await supabase
 
 .from("products")
 
 .select(`
-
 id,
 name,
 price,
 unit,
+stock_quantity,
 vendor_id
-
 `)
 
 .eq(
@@ -1089,16 +1007,13 @@ productId
 
 
 
-
 if(error){
 
 console.error(error);
 
-
 alert(
 "Cannot add product."
 );
-
 
 return;
 
@@ -1107,63 +1022,45 @@ return;
 
 
 
-
 shoppingCart.push({
-
 
 product_id:
 product.id,
 
-
 product_name:
 product.name,
-
 
 unit:
 product.unit,
 
-
 unit_price:
 Number(product.price),
-
 
 quantity:
 1,
 
-
 subtotal:
 Number(product.price),
 
-
 vendor_id:
 product.vendor_id
-
-
 
 });
 
 
 
-
-
 localStorage.setItem(
-
-"tinambacCart",
-
-JSON.stringify(shoppingCart)
-
+    "tinambacCart",
+    JSON.stringify(shoppingCart)
 );
-
-
 
 
 updateCartDisplay();
 
 
-
 alert(
-product.name +
-" added to cart!"
+    product.name +
+    " added to cart."
 );
 
 
@@ -1173,8 +1070,1162 @@ product.name +
 
 
 
+function updateCartDisplay(){
 
-updateCartDisplay();
+
+const count =
+document.getElementById(
+"cart-count"
+);
+
+
+
+if(count){
+
+count.textContent =
+shoppingCart.length;
+
+}
+
+
+
+}
+
+
+
+
+
+function showCart(){
+
+    
+function showLogin(){
+
+    document.getElementById(
+        "login-modal"
+    ).style.display = "flex";
+
+}
+
+
+function closeLogin(){
+
+    document.getElementById(
+        "login-modal"
+    ).style.display = "none";
+
+}
+
+
+async function loginUser(){
+
+    const email =
+    document.getElementById(
+        "login-email"
+    ).value;
+
+
+    const password =
+    document.getElementById(
+        "login-password"
+    ).value;
+
+
+    const {
+        data,
+        error
+    } =
+    await supabase.auth.signInWithPassword({
+
+        email: email,
+
+        password: password
+
+    });
+
+
+    if(error){
+
+        alert(
+            error.message
+        );
+
+        return;
+
+    }
+
+
+    alert(
+        "Login successful!"
+    );
+
+
+    closeLogin();
+
+}
+
+
+
+async function registerUser(){
+
+    const email =
+    document.getElementById(
+        "login-email"
+    ).value;
+
+
+    const password =
+    document.getElementById(
+        "login-password"
+    ).value;
+
+
+    const {
+        data,
+        error
+    } =
+    await supabase.auth.signUp({
+
+        email: email,
+
+        password: password
+
+    });
+
+
+    if(error){
+
+        alert(
+            error.message
+        );
+
+        return;
+
+    }
+
+
+    alert(
+        "Account created successfully!"
+    );
+
+}
+
+    const {
+        data: userData,
+        error: userError
+
+        async function checkout(){
+
+} = await supabase.auth.getUser();
+
+
+    if(userError || !userData.user){
+
+        alert(
+            "Please login before checkout."
+        );
+
+        return;
+
+    }
+
+
+    const userId =
+        userData.user.id;
+
+
+
+    const {
+        data: customer,
+        error: customerError
+    } =
+    await supabase
+
+    .from("customers")
+
+    .select("*")
+
+    .eq(
+        "user_id",
+        userId
+    )
+
+    .single();
+
+
+
+    if(customerError){
+
+        console.error(
+            customerError
+        );
+
+        alert(
+            "Customer profile not found."
+        );
+
+        return;
+
+    }
+
+
+
+    const subtotal =
+        shoppingCart.reduce(
+            function(total,item){
+
+                return total + item.subtotal;
+
+            },
+            0
+        );
+
+
+
+    const firstItem =
+        shoppingCart[0];
+
+
+
+    const {
+        data: order,
+        error: orderError
+    } =
+    await supabase
+
+    .from("orders")
+
+    .insert({
+
+        customer_id:
+            customer.id,
+
+        vendor_id:
+            firstItem.vendor_id,
+
+        subtotal:
+            subtotal,
+
+        delivery_fee:
+            0,
+
+        total_amount:
+            subtotal,
+
+        status:
+            "pending",
+
+        delivery_method:
+            "delivery",
+
+        customer_notes:
+            "Online order"
+
+    })
+
+    .select()
+
+    .single();
+
+
+
+    if(orderError){
+
+        console.error(
+            orderError
+        );
+
+        alert(
+            orderError.message
+        );
+
+        return;
+
+    }
+
+
+
+    const orderItems =
+        shoppingCart.map(
+            function(item){
+
+                return {
+
+                    order_id:
+                        order.id,
+
+                    product_id:
+                        item.product_id,
+
+                    product_name:
+                        item.product_name,
+
+                    unit:
+                        item.unit,
+
+                    unit_price:
+                        item.unit_price,
+
+                    quantity:
+                        item.quantity,
+
+                    subtotal:
+                        item.subtotal
+
+                };
+
+            }
+        );
+
+
+
+    const {
+        error:itemError
+    } =
+    await supabase
+
+    .from("order_items")
+
+    .insert(
+        orderItems
+    );
+
+
+
+    if(itemError){
+
+        console.error(
+            itemError
+        );
+
+        alert(
+            itemError.message
+        );
+
+        return;
+
+    }
+
+
+
+    await supabase
+
+    .from("payments")
+
+    .insert({
+
+        order_id:
+            order.id,
+
+        payment_method:
+            "Cash on Delivery",
+
+        amount:
+            subtotal,
+
+        status:
+            "pending"
+
+    });
+
+
+
+    localStorage.removeItem(
+        "tinambacCart"
+    );
+
+
+    shoppingCart = [];
+
+
+    updateCartDisplay();
+
+
+
+    alert(
+        "Order placed successfully!\n\nOrder ID:\n"
+        +
+        order.id
+    );
+
+}
+
+
+    const userId =
+        user.data.user.id;
+
+
+
+    const {data:customer,error:customerError}
+        =
+        await supabase
+
+        .from("customers")
+
+        .select("*")
+
+        .eq(
+            "user_id",
+            userId
+        )
+
+        .single();
+
+
+
+    if(customerError){
+
+        alert(
+            "Customer profile not found."
+        );
+
+        console.error(
+            customerError
+        );
+
+        return;
+
+    }
+
+
+
+    const firstItem =
+        shoppingCart[0];
+
+
+
+    const subtotal =
+        shoppingCart.reduce(
+            (total,item)=>
+            total + item.subtotal,
+            0
+        );
+
+
+
+    const deliveryFee = 0;
+
+
+
+    const totalAmount =
+        subtotal + deliveryFee;
+
+
+
+    const {data:order,error:orderError}
+        =
+        await supabase
+
+        .from("orders")
+
+        .insert({
+
+            customer_id:
+                customer.id,
+
+            vendor_id:
+                firstItem.vendor_id,
+
+            subtotal:
+                subtotal,
+
+            delivery_fee:
+                deliveryFee,
+
+            total_amount:
+                totalAmount,
+
+            status:
+                "pending",
+
+            delivery_method:
+                "delivery",
+
+            customer_notes:
+                "Online order from Tinambac Fish Market"
+
+        })
+
+        .select()
+
+        .single();
+
+
+
+    if(orderError){
+
+        console.error(
+            orderError
+        );
+
+        alert(
+            "Unable to create order."
+        );
+
+        return;
+
+    }
+
+
+
+
+    const orderItems =
+        shoppingCart.map(
+            item => ({
+
+                order_id:
+                    order.id,
+
+                product_id:
+                    item.product_id,
+
+                product_name:
+                    item.product_name,
+
+                unit:
+                    item.unit,
+
+                unit_price:
+                    item.unit_price,
+
+                quantity:
+                    item.quantity,
+
+                subtotal:
+                    item.subtotal
+
+            })
+        );
+
+
+
+
+    const {error:itemError}
+        =
+        await supabase
+
+        .from("order_items")
+
+        .insert(
+            orderItems
+        );
+
+
+
+    if(itemError){
+
+        console.error(
+            itemError
+        );
+
+        alert(
+            "Order items failed."
+        );
+
+        return;
+
+    }
+
+
+
+
+    await supabase
+
+    .from("payments")
+
+    .insert({
+
+        order_id:
+            order.id,
+
+        payment_method:
+            "Cash on Delivery",
+
+        amount:
+            totalAmount,
+
+        status:
+            "pending"
+
+    });
+
+
+
+
+
+    localStorage.removeItem(
+        "tinambacCart"
+    );
+
+
+    shoppingCart = [];
+
+
+    updateCartDisplay();
+
+
+
+    alert(
+        "Order placed successfully!\n\nOrder ID: "
+        +
+        order.id
+    );
+
+
+}
+
+if(
+shoppingCart.length === 0
+){
+
+alert(
+"Your cart is empty."
+);
+
+return;
+
+}
+
+
+
+let message =
+"YOUR CART\n\n";
+
+
+
+let total = 0;
+
+
+
+shoppingCart.forEach(
+item=>{
+
+
+message +=
+
+item.product_name +
+
+"\n" +
+
+item.quantity +
+
+" " +
+
+item.unit +
+
+" x ₱" +
+
+item.unit_price +
+
+"\n\n";
+
+
+
+total +=
+item.subtotal;
+
+
+
+}
+
+);
+
+
+
+message +=
+"TOTAL: ₱" + total;
+
+
+
+alert(
+message
+);
+
+
+
+}
+
+
+
+
+function vendorRegistration(){
+
+alert(
+"Vendor registration will be available soon."
+);
+
+}
+
 
 
 loadProducts();
+
+
+
+</script>
+
+
+    const {
+        data:userData,
+        error:userError
+    } =
+    await supabase.auth.getUser();
+
+
+
+    if(userError || !userData.user){
+
+        alert(
+            "Please login first."
+        );
+
+        return;
+
+    }
+
+
+
+    const userId =
+        userData.user.id;
+
+
+
+    // Get customer profile
+
+    const {
+        data:customer,
+        error:customerError
+    } =
+    await supabase
+
+    .from("customers")
+
+    .select("*")
+
+    .eq(
+        "user_id",
+        userId
+    )
+
+    .single();
+
+
+
+    if(customerError){
+
+        console.error(
+            customerError
+        );
+
+        alert(
+            "Customer information not found."
+        );
+
+        return;
+
+    }
+
+
+
+    // Get default delivery address
+
+    const {
+        data:address,
+        error:addressError
+    } =
+    await supabase
+
+    .from("delivery_addresses")
+
+    .select("*")
+
+    .eq(
+        "user_id",
+        userId
+    )
+
+    .eq(
+        "is_default",
+        true
+    )
+
+    .single();
+
+
+
+    if(addressError){
+
+        console.error(
+            addressError
+        );
+
+        alert(
+            "Default delivery address not found."
+        );
+
+        return;
+
+    }
+
+
+
+    // Calculate total
+
+    const subtotal =
+        shoppingCart.reduce(
+            function(total,item){
+
+                return total + item.subtotal;
+
+            },
+            0
+        );
+
+
+
+    const deliveryFee = 0;
+
+
+    const totalAmount =
+        subtotal + deliveryFee;
+
+
+
+    // First vendor only for version 1
+
+    const vendorId =
+        shoppingCart[0].vendor_id;
+
+
+
+    // Create order
+
+    const {
+        data:order,
+        error:orderError
+    }
+    =
+    await supabase
+
+    .from("orders")
+
+    .insert({
+
+        customer_id:
+            customer.id,
+
+        vendor_id:
+            vendorId,
+
+        delivery_address_id:
+            address.id,
+
+        delivery_method:
+            "delivery",
+
+        status:
+            "pending",
+
+        subtotal:
+            subtotal,
+
+        delivery_fee:
+            deliveryFee,
+
+        total_amount:
+            totalAmount,
+
+        customer_notes:
+            "Online order from Tinambac Fish Market"
+
+    })
+
+    .select()
+
+    .single();
+
+
+
+    if(orderError){
+
+        console.error(
+            orderError
+        );
+
+        alert(
+            "Order creation failed:\n"
+            +
+            orderError.message
+        );
+
+        return;
+
+    }
+
+
+
+    // Create order items
+
+    const items =
+        shoppingCart.map(
+            function(item){
+
+                return {
+
+                    order_id:
+                        order.id,
+
+                    product_id:
+                        item.product_id,
+
+                    product_name:
+                        item.product_name,
+
+                    unit:
+                        item.unit,
+
+                    unit_price:
+                        item.unit_price,
+
+                    quantity:
+                        item.quantity,
+
+                    subtotal:
+                        item.subtotal
+
+                };
+
+            }
+        );
+
+
+
+    const {
+        error:itemError
+    }
+    =
+    await supabase
+
+    .from("order_items")
+
+    .insert(items);
+
+
+
+    if(itemError){
+
+        console.error(
+            itemError
+        );
+
+        alert(
+            "Order items failed:\n"
+            +
+            itemError.message
+        );
+
+        return;
+
+    }
+
+
+
+    // Create payment record
+
+    const {
+        error:paymentError
+    }
+    =
+    await supabase
+
+    .from("payments")
+
+    .insert({
+
+        order_id:
+            order.id,
+
+        payment_method:
+            "Cash on Delivery",
+
+        amount:
+            totalAmount,
+
+        status:
+            "pending"
+
+    });
+
+
+
+    if(paymentError){
+
+        console.error(
+            paymentError
+        );
+
+        alert(
+            "Payment record failed:\n"
+            +
+            paymentError.message
+        );
+
+        return;
+
+    }
+
+
+
+    // Clear cart
+
+    shoppingCart = [];
+
+
+    localStorage.removeItem(
+        "tinambacCart"
+    );
+
+
+    updateCartDisplay();
+
+
+
+    alert(
+        "ORDER SUCCESSFUL!\n\n" +
+        "Order ID:\n" +
+        order.id
+    );
+
+
+}
+
+    function showLogin(){
+
+    document.getElementById(
+        "login-modal"
+    ).style.display = "flex";
+
+}
+
+
+function closeLogin(){
+
+    document.getElementById(
+        "login-modal"
+    ).style.display = "none";
+
+}
+
+
+async function loginUser(){
+
+    const email =
+    document.getElementById(
+        "login-email"
+    ).value;
+
+
+    const password =
+    document.getElementById(
+        "login-password"
+    ).value;
+
+
+    const {
+        data,
+        error
+    } =
+    await supabase.auth.signInWithPassword({
+
+        email: email,
+
+        password: password
+
+    });
+
+
+    if(error){
+
+        alert(error.message);
+
+        return;
+
+    }
+
+
+    alert(
+        "Login successful!"
+    );
+
+
+    closeLogin();
+
+}
+
+
+
+async function registerUser(){
+
+    const email =
+    document.getElementById(
+        "login-email"
+    ).value;
+
+
+    const password =
+    document.getElementById(
+        "login-password"
+    ).value;
+
+
+    const {
+        data,
+        error
+    } =
+    await supabase.auth.signUp({
+
+        email: email,
+
+        password: password
+
+    });
+
+
+    if(error){
+
+        alert(error.message);
+
+        return;
+
+    }
+
+
+    alert(
+        "Account created successfully!"
+    );
+
+}
+    
+</script>
+
+<script>
+
+Supabase
+loadProducts
+addToCart
+showCart
+checkout
+vendorRegistration
+showLogin
+closeLogin
+loginUser
+registerUser
+
+</script>
+
+</body>
+</html>
+
+
+
+</body>
+</html>
