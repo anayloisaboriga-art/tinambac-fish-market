@@ -708,26 +708,22 @@ Tinambac, Camarines Sur, Philippines
 
 
 </footer>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabaseClient/supabaseClient-js@2"></script>
 
 
 <script>
 
 
-const SUPABASE_URL =
-"https://eyflalxgkqekrebzxxra.supabase.co";
+const SUPABASE_URL = "https://eyflalxgkqekrebzxxra.supabaseClient.co";
+
+const SUPABASE_KEY = "sb_publishable_Ha8tHUn1V9aa5OPuZNY8tQ_e8wJWK_b";
 
 
-const SUPABASE_KEY =
-"sb_publishable_Ha8tHUn1V9aa5OPuZNY8tQ_e8wJWK_b";
-
-
-
-const supabase =
-window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-);
+const supabaseClient =
+    window.supabaseClient.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
 
 
 
@@ -782,7 +778,7 @@ data,
 error
 }
 =
-await supabase
+await supabaseClient
 
 .from("products")
 
@@ -1070,7 +1066,7 @@ data:product,
 error
 }
 =
-await supabase
+await supabaseClient
 
 .from("products")
 
