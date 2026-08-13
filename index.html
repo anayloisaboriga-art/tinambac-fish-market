@@ -12,312 +12,352 @@
 
 <style>
 
-*{
-    box-sizing:border-box;
+* {
+    box-sizing: border-box;
 }
 
 
-body{
-
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:#f5f8fa;
-    color:#1f2933;
-
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f8fa;
+    color: #1f2933;
 }
 
 
-header{
-
-    background:#087f8c;
-    color:white;
-    padding:18px 30px;
-
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    flex-wrap:wrap;
-
+header {
+    background: #087f8c;
+    color: white;
+    padding: 18px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
 }
 
 
-.logo{
-
-    font-size:24px;
-    font-weight:bold;
-
+.logo {
+    font-size: 24px;
+    font-weight: bold;
 }
 
 
-nav a{
-
-    color:white;
-    text-decoration:none;
-    margin-left:20px;
-    font-size:15px;
-
+nav {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 18px;
 }
 
 
-#cart-bar{
-
-    background:white;
-    color:#12343b;
-    padding:12px 20px;
-    border-radius:8px;
-
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
 }
 
 
-#cart-bar button{
-
-    margin-left:8px;
-    padding:8px 12px;
-    border:none;
-    border-radius:6px;
-    cursor:pointer;
-    background:#087f8c;
-    color:white;
-
+nav a:hover {
+    text-decoration: underline;
 }
 
 
-.hero{
+#cart-bar {
+    background: white;
+    color: #12343b;
+    padding: 12px 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
 
+
+#cart-bar button {
+    margin-left: 6px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background: #087f8c;
+    color: white;
+    font-weight: bold;
+}
+
+
+#cart-bar button:hover {
+    background: #066673;
+}
+
+
+.hero {
     background:
-    linear-gradient(
-    rgba(0,90,100,.75),
-    rgba(0,90,100,.75)
-    ),
-    url("https://images.unsplash.com/photo-1544943910-4c1dc44aab44?auto=format&fit=crop&w=1600&q=80");
+        linear-gradient(
+            rgba(0, 90, 100, 0.75),
+            rgba(0, 90, 100, 0.75)
+        ),
+        url("https://images.unsplash.com/photo-1544943910-4c1dc44aab44?auto=format&fit=crop&w=1600&q=80");
 
+    background-size: cover;
+    background-position: center;
 
-    background-size:cover;
-    background-position:center;
+    min-height: 430px;
 
-    min-height:430px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    text-align: center;
+    color: white;
 
-    text-align:center;
-    color:white;
-
-    padding:40px 20px;
-
+    padding: 40px 20px;
 }
 
 
-.hero-content{
-
-    max-width:800px;
-
+.hero-content {
+    max-width: 800px;
 }
 
 
-.hero h1{
-
-    font-size:48px;
-
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 15px;
 }
 
 
-.hero p{
-
-    font-size:20px;
-    line-height:1.6;
-
+.hero p {
+    font-size: 20px;
+    line-height: 1.6;
 }
 
 
-.button{
-
-    display:inline-block;
-    margin-top:20px;
-
-    padding:14px 28px;
-
-    background:#f4b942;
-    color:#17202a;
-
-    text-decoration:none;
-
-    border-radius:8px;
-
-    font-weight:bold;
-
-    border:none;
-    cursor:pointer;
-
+.button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 14px 28px;
+    background: #f4b942;
+    color: #17202a;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
 }
 
 
-.section{
-
-    padding:50px 25px;
-    text-align:center;
-
+.button:hover {
+    background: #e5a92f;
 }
 
 
-.section h2{
+.section {
+    padding: 50px 25px;
+    text-align: center;
+}
 
-    color:#087f8c;
-    font-size:32px;
 
+.section h2 {
+    color: #087f8c;
+    font-size: 32px;
 }
 
 
 .cards,
-.products{
-
-    max-width:1100px;
-
-    margin:30px auto;
-
-    display:flex;
-
-    gap:20px;
-
-    justify-content:center;
-
-    flex-wrap:wrap;
-
+.products {
+    max-width: 1100px;
+    margin: 30px auto;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 
-.card{
-
-    background:white;
-
-    width:300px;
-
-    padding:25px;
-
-    border-radius:12px;
-
-    box-shadow:
-    0 3px 12px rgba(0,0,0,.08);
-
+.card {
+    background: white;
+    width: 300px;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
 }
 
 
-.card h3{
-
-    color:#087f8c;
-
+.card h3 {
+    color: #087f8c;
 }
 
 
-/* PRODUCTS */
-
-
-.product-card{
-
-    background:white;
-
-    width:300px;
-
-    border-radius:12px;
-
-    overflow:hidden;
-
-    box-shadow:
-    0 3px 12px rgba(0,0,0,.08);
-
-    text-align:left;
-
+.product-card {
+    background: white;
+    width: 300px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    text-align: left;
 }
 
 
-.product-image{
-
-    width:100%;
-    height:190px;
-    object-fit:cover;
-
+.product-image {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    background: #dff3f7;
 }
 
 
-.no-image{
-
-    width:100%;
-    height:190px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    font-size:65px;
-
-    background:#dff3f7;
-
+.no-image {
+    width: 100%;
+    height: 190px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 65px;
+    background: #dff3f7;
 }
 
 
-.product-info{
-
-    padding:20px;
-
+.product-info {
+    padding: 20px;
 }
 
 
-.product-info h3{
-
-    color:#087f8c;
-
+.product-info h3 {
+    color: #087f8c;
+    margin-top: 0;
 }
 
 
-.price{
-
-    color:#d88700;
-
-    font-size:20px;
-
-    font-weight:bold;
-
+.price {
+    color: #d88700;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 12px 0;
 }
 
 
-.order-btn{
-
-    width:100%;
-
-    padding:11px;
-
-    background:#087f8c;
-
-    color:white;
-
-    border:none;
-
-    border-radius:7px;
-
-    cursor:pointer;
-
+.order-btn {
+    width: 100%;
+    padding: 11px;
+    background: #087f8c;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: bold;
 }
 
 
-.loading{
-
-    padding:30px;
-    width:100%;
-    color:#666;
-
+.order-btn:hover {
+    background: #066673;
 }
 
 
-footer{
+.loading {
+    width: 100%;
+    text-align: center;
+    padding: 30px;
+    color: #666;
+}
 
-    background:#12343b;
 
-    color:white;
+#login-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
 
-    text-align:center;
 
-    padding:25px;
+.login-box {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    width: 320px;
+    max-width: 90%;
+}
+
+
+.login-box h2 {
+    color: #087f8c;
+    margin-top: 0;
+}
+
+
+.login-box input {
+    width: 100%;
+    padding: 10px;
+    margin: 6px 0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+
+.login-box button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+
+.login-button {
+    background: #087f8c;
+    color: white;
+}
+
+
+.register-button {
+    background: #f4b942;
+    color: #17202a;
+}
+
+
+.close-button {
+    background: #ddd;
+    color: #333;
+}
+
+
+footer {
+    background: #12343b;
+    color: white;
+    text-align: center;
+    padding: 25px;
+    margin-top: 30px;
+}
+
+
+@media (max-width: 800px) {
+
+    header {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav {
+        justify-content: center;
+    }
+
+    #cart-bar {
+        width: 100%;
+        text-align: center;
+    }
+
+    .hero h1 {
+        font-size: 34px;
+    }
+
+    .hero p {
+        font-size: 17px;
+    }
 
 }
 
@@ -325,60 +365,61 @@ footer{
 </style>
 
 </head>
+
+
 <body>
 
 
 <header>
 
-    <div class="logo">
-        🐟 Tinambac Fish Market
-    </div>
+
+<div class="logo">
+🐟 Tinambac Fish Market
+</div>
 
 
-    <nav>
+<nav>
 
-        <a href="#home">
-            Home
-        </a>
+<a href="#home">
+Home
+</a>
 
-        <a href="#products">
-            Fish & Seafood
-        </a>
+<a href="#products">
+Fish & Seafood
+</a>
 
-        <a href="#vendors">
-            Vendors
-        </a>
+<a href="#vendors">
+Vendors
+</a>
 
-        <a href="#about">
-            About
-        </a>
+<a href="#about">
+About
+</a>
 
-        <a href="#" onclick="showLogin()">
-            Login
-        </a>
+<a href="#" onclick="showLogin(); return false;">
+Login
+</a>
 
-    </nav>
-
-
-    <div id="cart-bar">
-
-        🛒 Cart:
-        <strong id="cart-count">
-            0
-        </strong>
-        item(s)
+</nav>
 
 
-        <button onclick="showCart()">
-            View Cart
-        </button>
+<div id="cart-bar">
+
+🛒 Cart:
+<strong id="cart-count">0</strong>
+item(s)
 
 
-        <button onclick="checkout()">
-            Checkout
-        </button>
+<button type="button" onclick="showCart()">
+View Cart
+</button>
 
-    </div>
+
+<button type="button" onclick="checkout()">
+Checkout
+</button>
+
+</div>
 
 
 </header>
@@ -398,9 +439,12 @@ Fresh Catch. Local Vendors. Easy Ordering.
 
 
 <p>
+
 Welcome to Tinambac Fish Market —
-an online marketplace connecting customers
-with fish vendors in Tinambac, Camarines Sur.
+an online marketplace connecting
+customers with fish vendors in
+Tinambac, Camarines Sur.
+
 </p>
 
 
@@ -419,7 +463,6 @@ Browse Fresh Fish
 
 
 
-
 <section class="section" id="about">
 
 
@@ -428,9 +471,7 @@ What You Can Do
 </h2>
 
 
-
 <div class="cards">
-
 
 
 <div class="card">
@@ -440,13 +481,14 @@ What You Can Do
 </h3>
 
 <p>
-Browse fresh fish and seafood products
-offered by local vendors in Tinambac.
+
+Browse fresh fish and seafood
+products offered by local vendors
+in Tinambac.
+
 </p>
 
 </div>
-
-
 
 
 <div class="card">
@@ -456,13 +498,13 @@ offered by local vendors in Tinambac.
 </h3>
 
 <p>
-Discover fish vendors and seafood sellers
-operating within Tinambac.
+
+Discover fish vendors and seafood
+sellers operating within Tinambac.
+
 </p>
 
 </div>
-
-
 
 
 <div class="card">
@@ -472,20 +514,19 @@ operating within Tinambac.
 </h3>
 
 <p>
-Place your order online and receive updates
-about your purchase.
+
+Place your order online and receive
+updates about your purchase.
+
 </p>
 
 </div>
-
 
 
 </div>
 
 
 </section>
-
-
 
 
 
@@ -504,24 +545,16 @@ in Tinambac.
 </p>
 
 
-
 <div class="products" id="product-list">
 
-
 <div class="loading">
-
 Loading fresh fish...
-
 </div>
-
 
 </div>
 
 
 </section>
-
-
-
 
 
 
@@ -535,14 +568,18 @@ For Fish Vendors
 
 
 <p>
+
 Are you a fish vendor in Tinambac?
-Join our marketplace and showcase your
-products online.
+
+Join our marketplace and showcase
+your products online.
+
 </p>
 
 
-
-<button class="button"
+<button
+class="button"
+type="button"
 onclick="vendorRegistration()">
 
 Become a Vendor
@@ -555,33 +592,10 @@ Become a Vendor
 
 
 
+<div id="login-modal">
 
 
-
-<!-- LOGIN MODAL -->
-
-
-<div id="login-modal"
-style="
-display:none;
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,.5);
-align-items:center;
-justify-content:center;
-z-index:9999;
-">
-
-
-<div style="
-background:white;
-padding:30px;
-border-radius:10px;
-width:320px;
-">
+<div class="login-box">
 
 
 <h2>
@@ -589,54 +603,54 @@ Customer Login
 </h2>
 
 
-
 <input
 id="login-email"
 type="email"
 placeholder="Email"
-style="width:100%;padding:10px;margin:5px 0;"
 >
-
 
 
 <input
 id="login-password"
 type="password"
 placeholder="Password"
-style="width:100%;padding:10px;margin:5px 0;"
 >
 
 
-
-<button onclick="loginUser()">
+<button
+class="login-button"
+type="button"
+onclick="loginUser()">
 
 Login
 
 </button>
 
 
-
-<button onclick="registerUser()">
+<button
+class="register-button"
+type="button"
+onclick="registerUser()">
 
 Create Account
 
 </button>
 
 
-
-<button onclick="closeLogin()">
+<button
+class="close-button"
+type="button"
+onclick="closeLogin()">
 
 Close
 
 </button>
 
 
-
 </div>
 
 
 </div>
-
 
 
 
@@ -645,9 +659,11 @@ Close
 
 
 <p>
+
 <strong>
 Tinambac Fish Market
 </strong>
+
 </p>
 
 
@@ -662,8 +678,22 @@ Tinambac, Camarines Sur, Philippines
 
 
 </footer>
+
+
+
+
+<!-- SUPABASE -->
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
 <script>
+
+
+/* =====================================================
+   SUPABASE CONNECTION
+===================================================== */
+
 
 const SUPABASE_URL =
 "https://eyflalxgkqekrebzxxra.supabase.co";
@@ -671,7 +701,6 @@ const SUPABASE_URL =
 
 const SUPABASE_KEY =
 "sb_publishable_Ha8tHUn1V9aa5OPuZNY8tQ_e8wJWK_b";
-
 
 
 const supabase =
@@ -682,22 +711,23 @@ window.supabase.createClient(
 
 
 
+/* =====================================================
+   SHOPPING CART
+===================================================== */
+
+
 let shoppingCart =
 JSON.parse(
-    localStorage.getItem("tinambacCart")
-) || [];
+    localStorage.getItem("tinambacCart") || "[]"
+);
 
 
-
-function updateCartDisplay(){
+function updateCartDisplay() {
 
     const count =
-    document.getElementById(
-        "cart-count"
-    );
+    document.getElementById("cart-count");
 
-
-    if(count){
+    if (count) {
 
         count.textContent =
         shoppingCart.length;
@@ -708,343 +738,398 @@ function updateCartDisplay(){
 
 
 
+/* =====================================================
+   LOAD PRODUCTS
+===================================================== */
 
 
+async function loadProducts() {
 
-async function loadProducts(){
+    const productList =
+    document.getElementById("product-list");
 
 
-const productList =
-document.getElementById(
-    "product-list"
-);
+    if (!productList) {
 
+        console.error(
+            "Product container not found."
+        );
 
+        return;
 
-const {
-    data,
-    error
-}
-=
-await supabase
+    }
 
-.from("products")
 
-.select(`
+    productList.innerHTML =
+    `
+    <div class="loading">
+        Loading fresh fish...
+    </div>
+    `;
 
-id,
-name,
-description,
-price,
-unit,
-stock_quantity,
-image_url,
-vendor_id,
 
-vendors(
-business_name,
-selling_location,
-barangay,
-municipality
-)
+    try {
 
-`)
 
-.eq(
-"status",
-"active"
-)
+        const { data, error } =
+        await supabase
 
-.gt(
-"stock_quantity",
-0
-)
+        .from("products")
 
-.order(
-"created_at",
-{
-ascending:false
-}
-);
+        .select(`
+            id,
+            name,
+            description,
+            price,
+            unit,
+            stock_quantity,
+            image_url,
+            vendor_id,
+            vendors (
+                business_name,
+                selling_location,
+                barangay,
+                municipality
+            )
+        `)
 
+        .eq(
+            "status",
+            "active"
+        )
 
+        .gt(
+            "stock_quantity",
+            0
+        )
 
-if(error){
+        .order(
+            "created_at",
+            {
+                ascending: false
+            }
+        );
 
-console.error(error);
 
+        if (error) {
 
-productList.innerHTML =
-`
-<div>
-Unable to load products.
-</div>
-`;
+            console.error(
+                "PRODUCT ERROR:",
+                error
+            );
 
-return;
 
-}
+            productList.innerHTML =
+            `
+            <div class="loading">
+                Unable to load products.
+                <br><br>
+                ${error.message}
+            </div>
+            `;
 
+            return;
 
+        }
 
 
-if(!data || data.length===0){
+        if (!data || data.length === 0) {
 
+            productList.innerHTML =
+            `
+            <div class="loading">
+                No fresh fish products are currently available.
+            </div>
+            `;
 
-productList.innerHTML =
-`
-<div>
-No fresh fish products are currently available.
-</div>
-`;
+            return;
 
-return;
+        }
 
-}
 
+        productList.innerHTML = "";
 
 
-productList.innerHTML="";
+        data.forEach(
+            function(product) {
 
 
+                const card =
+                document.createElement("div");
 
-data.forEach(product=>{
 
+                card.className =
+                "product-card";
 
-let image =
-`
-<div class="no-image">
-🐟
-</div>
-`;
 
+                let imageHTML =
+                `
+                <div class="no-image">
+                    🐟
+                </div>
+                `;
 
 
-if(product.image_url){
+                if (product.image_url) {
 
-image =
-`
-<img
-class="product-image"
-src="${product.image_url}">
-`;
+                    imageHTML =
+                    `
+                    <img
+                        class="product-image"
+                        src="${product.image_url}"
+                        alt="${product.name}"
+                    >
+                    `;
 
-}
+                }
 
 
+                let vendorName =
+                "Local Fish Vendor";
 
-const vendor =
-product.vendors
-?
-product.vendors.business_name
-:
-"Local Fish Vendor";
 
+                let location =
+                "Tinambac, Camarines Sur";
 
 
-const location =
-product.vendors
-?
-(
-product.vendors.selling_location ||
-product.vendors.barangay ||
-product.vendors.municipality
-)
-:
-"Tinambac";
+                if (product.vendors) {
 
+                    vendorName =
+                    product.vendors.business_name ||
+                    "Local Fish Vendor";
 
 
+                    location =
+                    product.vendors.selling_location ||
+                    product.vendors.barangay ||
+                    product.vendors.municipality ||
+                    "Tinambac, Camarines Sur";
 
-const card =
-document.createElement(
-"div"
-);
+                }
 
 
-card.className =
-"product-card";
+                card.innerHTML =
+                `
 
+                ${imageHTML}
 
+                <div class="product-info">
 
-card.innerHTML =
+                    <h3>
+                        ${product.name}
+                    </h3>
 
-`
+                    <p>
+                        ${product.description || ""}
+                    </p>
 
-${image}
+                    <div class="price">
 
-<div class="product-info">
+                        ₱${Number(product.price).toFixed(2)}
+                        /
+                        ${product.unit || "unit"}
 
+                    </div>
 
-<h3>
-${product.name}
-</h3>
+                    <p>
 
+                        Available:
+                        ${product.stock_quantity}
+                        ${product.unit || "unit"}
 
-<p>
-${product.description || ""}
-</p>
+                    </p>
 
+                    <p>
 
+                        🏪
+                        <strong>
+                            ${vendorName}
+                        </strong>
 
-<div class="price">
+                        <br>
 
-₱${Number(product.price).toFixed(2)}
-/
-${product.unit}
+                        📍
+                        ${location}
 
-</div>
+                    </p>
 
+                    <button
+                        class="order-btn"
+                        type="button"
+                        onclick="addToCart('${product.id}')">
 
+                        Add to Cart
 
-<p>
-Available:
-${product.stock_quantity}
-${product.unit}
-</p>
+                    </button>
 
+                </div>
 
+                `;
 
-<p>
-🏪 ${vendor}
-<br>
-📍 ${location}
-</p>
 
+                productList.appendChild(card);
 
 
-<button
-class="order-btn"
-onclick="addToCart('${product.id}')">
+            }
+        );
 
-Add to Cart
 
-</button>
+    } catch (err) {
 
+        console.error(
+            "LOAD PRODUCTS ERROR:",
+            err
+        );
 
-</div>
 
-`;
+        productList.innerHTML =
+        `
+        <div class="loading">
+            An unexpected error occurred while loading products.
+        </div>
+        `;
 
-
-
-productList.appendChild(card);
-
-
-});
-
-
-}
-
-
-
-
-
-
-async function addToCart(productId){
-
-
-const {
-data:product,
-error
-}
-=
-await supabase
-
-.from("products")
-
-.select(`
-
-id,
-name,
-price,
-unit,
-vendor_id
-
-`)
-
-.eq(
-"id",
-productId
-)
-
-.single();
-
-
-
-if(error){
-
-alert(
-"Cannot add product."
-);
-
-console.error(error);
-
-return;
+    }
 
 }
 
 
 
-shoppingCart.push({
-
-product_id:
-product.id,
-
-product_name:
-product.name,
-
-unit:
-product.unit,
-
-unit_price:
-Number(product.price),
-
-quantity:
-1,
-
-subtotal:
-Number(product.price),
-
-vendor_id:
-product.vendor_id
-
-});
+/* =====================================================
+   ADD TO CART
+===================================================== */
 
 
-
-localStorage.setItem(
-
-"tinambacCart",
-
-JSON.stringify(shoppingCart)
-
-);
+async function addToCart(productId) {
 
 
-
-updateCartDisplay();
-
+    try {
 
 
-alert(
-product.name+
-" added to cart."
-);
+        const {
+            data: product,
+            error
+        } =
+        await supabase
+
+        .from("products")
+
+        .select(`
+            id,
+            name,
+            price,
+            unit,
+            stock_quantity,
+            vendor_id
+        `)
+
+        .eq(
+            "id",
+            productId
+        )
+
+        .single();
 
 
+        if (error) {
+
+            console.error(
+                "ADD TO CART ERROR:",
+                error
+            );
+
+
+            alert(
+                "Cannot add product."
+            );
+
+            return;
+
+        }
+
+
+        if (
+            product.stock_quantity === null ||
+            Number(product.stock_quantity) <= 0
+        ) {
+
+            alert(
+                "This product is out of stock."
+            );
+
+            return;
+
+        }
+
+
+        shoppingCart.push({
+
+            product_id:
+            product.id,
+
+            product_name:
+            product.name,
+
+            unit:
+            product.unit,
+
+            unit_price:
+            Number(product.price),
+
+            quantity:
+            1,
+
+            subtotal:
+            Number(product.price),
+
+            vendor_id:
+            product.vendor_id
+
+        });
+
+
+        localStorage.setItem(
+            "tinambacCart",
+            JSON.stringify(shoppingCart)
+        );
+
+
+        updateCartDisplay();
+
+
+        alert(
+            product.name +
+            " added to cart."
+        );
+
+
+    } catch (err) {
+
+        console.error(
+            "CART ERROR:",
+            err
+        );
+
+
+        alert(
+            "Unable to add this product to the cart."
+        );
+
+    }
 
 }
 
 
 
+/* =====================================================
+   SHOW CART
+===================================================== */
 
 
+function showCart() {
 
 
-function showCart(){
-
-    if(shoppingCart.length === 0){
+    if (shoppingCart.length === 0) {
 
         alert(
             "Your cart is empty."
@@ -1062,614 +1147,696 @@ function showCart(){
     let total = 0;
 
 
-    shoppingCart.forEach(item=>{
-
-        message +=
-        item.product_name +
-        "\n" +
-        item.quantity +
-        " " +
-        item.unit +
-        " x ₱" +
-        item.unit_price +
-        "\n\n";
+    shoppingCart.forEach(
+        function(item) {
 
 
-        total += item.subtotal;
+            message +=
+            item.product_name +
+            "\n" +
+            item.quantity +
+            " " +
+            item.unit +
+            " x ₱" +
+            Number(item.unit_price).toFixed(2) +
+            "\n\n";
 
 
-    });
+            total +=
+            Number(item.subtotal);
+
+
+        }
+    );
 
 
     message +=
-    "TOTAL: ₱" + total;
+    "TOTAL: ₱" +
+    total.toFixed(2);
 
 
     alert(message);
 
 }
-    
-function showLogin(){
 
+
+
+/* =====================================================
+   LOGIN MODAL
+===================================================== */
+
+
+function showLogin() {
+
+
+    const modal =
     document.getElementById(
         "login-modal"
-    ).style.display = "flex";
+    );
+
+
+    if (modal) {
+
+        modal.style.display =
+        "flex";
+
+    }
 
 }
 
 
 
-function closeLogin(){
+function closeLogin() {
 
+
+    const modal =
     document.getElementById(
         "login-modal"
-    ).style.display = "none";
+    );
+
+
+    if (modal) {
+
+        modal.style.display =
+        "none";
+
+    }
 
 }
 
 
 
+/* =====================================================
+   LOGIN
+===================================================== */
 
 
+async function loginUser() {
 
 
-async function loginUser(){
+    const email =
+    document.getElementById(
+        "login-email"
+    ).value.trim();
 
 
-const email =
-document.getElementById(
-"login-email"
-).value;
+    const password =
+    document.getElementById(
+        "login-password"
+    ).value;
 
 
+    if (!email || !password) {
 
-const password =
-document.getElementById(
-"login-password"
-).value;
+        alert(
+            "Please enter your email and password."
+        );
 
+        return;
 
-
-const {
-data,
-error
-}
-=
-await supabase.auth.signInWithPassword({
-
-email:email,
-
-password:password
-
-});
+    }
 
 
-
-if(error){
-
-alert(
-error.message
-);
-
-return;
-
-}
+    try {
 
 
+        const {
+            data,
+            error
+        } =
+        await supabase.auth.signInWithPassword({
 
-alert(
-"Login successful!"
-);
+            email:
+            email,
 
+            password:
+            password
 
-
-closeLogin();
-
-
-
-}
-
-
-
+        });
 
 
+        if (error) {
+
+            console.error(
+                "LOGIN ERROR:",
+                error
+            );
 
 
+            alert(
+                error.message
+            );
 
-async function registerUser(){
+            return;
 
-
-const email =
-document.getElementById(
-"login-email"
-).value;
-
+        }
 
 
-const password =
-document.getElementById(
-"login-password"
-).value;
+        alert(
+            "Login successful!"
+        );
 
 
-
-const {
-data,
-error
-}
-=
-await supabase.auth.signUp({
-
-email:email,
-
-password:password
-
-});
+        closeLogin();
 
 
+    } catch (err) {
 
-if(error){
+        console.error(
+            "LOGIN ERROR:",
+            err
+        );
 
-alert(
-error.message
-);
 
-return;
+        alert(
+            "Unable to login. Please try again."
+        );
+
+    }
 
 }
 
 
 
-alert(
-"Account created successfully!"
-);
+/* =====================================================
+   CREATE ACCOUNT
+===================================================== */
 
 
+async function registerUser() {
+
+
+    const email =
+    document.getElementById(
+        "login-email"
+    ).value.trim();
+
+
+    const password =
+    document.getElementById(
+        "login-password"
+    ).value;
+
+
+    if (!email || !password) {
+
+        alert(
+            "Please enter an email and password."
+        );
+
+        return;
+
+    }
+
+
+    if (password.length < 6) {
+
+        alert(
+            "Password must be at least 6 characters."
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+
+        const {
+            data,
+            error
+        } =
+        await supabase.auth.signUp({
+
+            email:
+            email,
+
+            password:
+            password
+
+        });
+
+
+        if (error) {
+
+            console.error(
+                "REGISTER ERROR:",
+                error
+            );
+
+
+            alert(
+                error.message
+            );
+
+            return;
+
+        }
+
+
+        if (
+            data.user &&
+            !data.session
+        ) {
+
+            alert(
+                "Account created successfully! Please check your email to confirm your account before logging in."
+            );
+
+        } else {
+
+            alert(
+                "Account created successfully!"
+            );
+
+        }
+
+
+    } catch (err) {
+
+        console.error(
+            "REGISTER ERROR:",
+            err
+        );
+
+
+        alert(
+            "Unable to create account. Please try again."
+        );
+
+    }
 
 }
 
 
 
+/* =====================================================
+   CHECKOUT
+===================================================== */
 
 
+async function checkout() {
 
 
+    if (shoppingCart.length === 0) {
+
+        alert(
+            "Your cart is empty."
+        );
+
+        return;
+
+    }
 
 
-
-async function checkout(){
-
+    try {
 
 
-if(shoppingCart.length===0){
+        const {
+            data: userData,
+            error: userError
+        } =
+        await supabase.auth.getUser();
 
-alert(
-"Your cart is empty."
-);
 
-return;
+        if (
+            userError ||
+            !userData ||
+            !userData.user
+        ) {
+
+            alert(
+                "Please login first."
+            );
+
+            showLogin();
+
+            return;
+
+        }
+
+
+        const userId =
+        userData.user.id;
+
+
+        /* CUSTOMER */
+
+
+        const {
+            data: customer,
+            error: customerError
+        } =
+        await supabase
+
+        .from("customers")
+
+        .select("*")
+
+        .eq(
+            "user_id",
+            userId
+        )
+
+        .single();
+
+
+        if (customerError) {
+
+            console.error(
+                "CUSTOMER ERROR:",
+                customerError
+            );
+
+
+            alert(
+                "Customer profile not found."
+            );
+
+            return;
+
+        }
+
+
+        /* DEFAULT ADDRESS */
+
+
+        const {
+            data: address,
+            error: addressError
+        } =
+        await supabase
+
+        .from("delivery_addresses")
+
+        .select("*")
+
+        .eq(
+            "user_id",
+            userId
+        )
+
+        .eq(
+            "is_default",
+            true
+        )
+
+        .single();
+
+
+        if (addressError) {
+
+            console.error(
+                "ADDRESS ERROR:",
+                addressError
+            );
+
+
+            alert(
+                "Default delivery address not found. Please create a default address first."
+            );
+
+            return;
+
+        }
+
+
+        /* TOTAL */
+
+
+        const subtotal =
+        shoppingCart.reduce(
+            function(total, item) {
+
+                return total +
+                Number(item.subtotal);
+
+            },
+            0
+        );
+
+
+        const deliveryFee = 0;
+
+
+        const totalAmount =
+        subtotal +
+        deliveryFee;
+
+
+        /* FIRST VENDOR */
+
+        const vendorId =
+        shoppingCart[0].vendor_id;
+
+
+        if (!vendorId) {
+
+            alert(
+                "Vendor information is missing from the cart."
+            );
+
+            return;
+
+        }
+
+
+        /* CREATE ORDER */
+
+
+        const {
+            data: order,
+            error: orderError
+        } =
+        await supabase
+
+        .from("orders")
+
+        .insert({
+
+            customer_id:
+            customer.id,
+
+            vendor_id:
+            vendorId,
+
+            delivery_address_id:
+            address.id,
+
+            delivery_method:
+            "delivery",
+
+            status:
+            "pending",
+
+            subtotal:
+            subtotal,
+
+            delivery_fee:
+            deliveryFee,
+
+            total_amount:
+            totalAmount,
+
+            customer_notes:
+            "Online order from Tinambac Fish Market"
+
+        })
+
+        .select()
+
+        .single();
+
+
+        if (orderError) {
+
+            console.error(
+                "ORDER ERROR:",
+                orderError
+            );
+
+
+            alert(
+                "Order creation failed:\n" +
+                orderError.message
+            );
+
+            return;
+
+        }
+
+
+        /* ORDER ITEMS */
+
+
+        const orderItems =
+        shoppingCart.map(
+            function(item) {
+
+                return {
+
+                    order_id:
+                    order.id,
+
+                    product_id:
+                    item.product_id,
+
+                    product_name:
+                    item.product_name,
+
+                    unit:
+                    item.unit,
+
+                    unit_price:
+                    item.unit_price,
+
+                    quantity:
+                    item.quantity,
+
+                    subtotal:
+                    item.subtotal
+
+                };
+
+            }
+        );
+
+
+        const {
+            error: itemError
+        } =
+        await supabase
+
+        .from("order_items")
+
+        .insert(
+            orderItems
+        );
+
+
+        if (itemError) {
+
+            console.error(
+                "ORDER ITEMS ERROR:",
+                itemError
+            );
+
+
+            alert(
+                "Order items failed:\n" +
+                itemError.message
+            );
+
+            return;
+
+        }
+
+
+        /* PAYMENT */
+
+
+        const {
+            error: paymentError
+        } =
+        await supabase
+
+        .from("payments")
+
+        .insert({
+
+            order_id:
+            order.id,
+
+            payment_method:
+            "Cash on Delivery",
+
+            amount:
+            totalAmount,
+
+            status:
+            "pending"
+
+        });
+
+
+        if (paymentError) {
+
+            console.error(
+                "PAYMENT ERROR:",
+                paymentError
+            );
+
+
+            alert(
+                "Payment record failed:\n" +
+                paymentError.message
+            );
+
+            return;
+
+        }
+
+
+        /* CLEAR CART */
+
+
+        shoppingCart = [];
+
+
+        localStorage.removeItem(
+            "tinambacCart"
+        );
+
+
+        updateCartDisplay();
+
+
+        alert(
+            "ORDER SUCCESSFUL!\n\n" +
+            "Order ID:\n" +
+            order.id
+        );
+
+
+    } catch (err) {
+
+
+        console.error(
+            "CHECKOUT ERROR:",
+            err
+        );
+
+
+        alert(
+            "An unexpected error occurred during checkout."
+        );
+
+    }
 
 }
 
 
 
-
-const {
-data:userData,
-error:userError
-}
-=
-await supabase.auth.getUser();
+/* =====================================================
+   VENDOR
+===================================================== */
 
 
+function vendorRegistration() {
 
 
-
-if(userError || !userData.user){
-
-
-alert(
-"Please login first."
-);
-
-
-return;
-
+    alert(
+        "Vendor registration will be available soon."
+    );
 
 }
 
 
 
-
-
-
-const userId =
-userData.user.id;
-
-
-
-
-
-const {
-data:customer,
-error:customerError
-}
-=
-await supabase
-
-.from("customers")
-
-.select("*")
-
-.eq(
-"user_id",
-userId
-)
-
-.single();
-
-
-
-
-
-
-if(customerError){
-
-
-console.error(customerError);
-
-
-alert(
-"Customer profile not found."
-);
-
-
-return;
-
-
-}
-
-
-
-
-
-
-
-const {
-data:address,
-error:addressError
-}
-=
-await supabase
-
-.from("delivery_addresses")
-
-.select("*")
-
-.eq(
-"user_id",
-userId
-)
-
-.eq(
-"is_default",
-true
-)
-
-.single();
-
-
-
-
-
-
-if(addressError){
-
-
-console.error(addressError);
-
-
-alert(
-"Default delivery address not found."
-);
-
-
-return;
-
-
-}
-
-
-
-
-
-
-
-const subtotal =
-
-shoppingCart.reduce(
-
-(total,item)=>
-total + item.subtotal,
-
-0
-
-);
-
-
-
-
-
-const deliveryFee = 0;
-
-
-const totalAmount =
-subtotal + deliveryFee;
-
-
-
-
-
-const vendorId =
-shoppingCart[0].vendor_id;
-
-
-
-
-
-
-
-
-const {
-data:order,
-error:orderError
-}
-=
-await supabase
-
-.from("orders")
-
-.insert({
-
-customer_id:
-customer.id,
-
-vendor_id:
-vendorId,
-
-delivery_address_id:
-address.id,
-
-delivery_method:
-"delivery",
-
-status:
-"pending",
-
-subtotal:
-subtotal,
-
-delivery_fee:
-deliveryFee,
-
-total_amount:
-totalAmount,
-
-customer_notes:
-"Online order from Tinambac Fish Market"
-
-})
-
-.select()
-
-.single();
-
-
-
-
-
-
-
-if(orderError){
-
-
-console.error(orderError);
-
-
-alert(
-orderError.message
-);
-
-
-return;
-
-
-}
-
-
-
-
-
-
-
-
-const items =
-
-shoppingCart.map(item=>({
-
-order_id:
-order.id,
-
-product_id:
-item.product_id,
-
-product_name:
-item.product_name,
-
-unit:
-item.unit,
-
-unit_price:
-item.unit_price,
-
-quantity:
-item.quantity,
-
-subtotal:
-item.subtotal
-
-}));
-
-
-
-
-
-
-
-const {
-error:itemError
-}
-=
-await supabase
-
-.from("order_items")
-
-.insert(items);
-
-
-
-
-
-
-
-if(itemError){
-
-
-console.error(itemError);
-
-
-alert(
-itemError.message
-);
-
-
-return;
-
-
-}
-
-
-
-
-
-
-
-
-const {
-error:paymentError
-}
-=
-await supabase
-
-.from("payments")
-
-.insert({
-
-order_id:
-order.id,
-
-payment_method:
-"Cash on Delivery",
-
-amount:
-totalAmount,
-
-status:
-"pending"
-
-});
-
-
-
-
-
-
-if(paymentError){
-
-
-console.error(paymentError);
-
-
-alert(
-paymentError.message
-);
-
-
-return;
-
-
-}
-
-
-
-
-
-
-
-
-shoppingCart=[];
-
-
-localStorage.removeItem(
-"tinambacCart"
-);
-
-
-
-updateCartDisplay();
-
-
-
-
-
-alert(
-
-"ORDER SUCCESSFUL!\n\nOrder ID:\n"
-+
-order.id
-
-);
-
-
-
-}
-
-
-
-
-
-
-
-
-
-
-function vendorRegistration(){
-
-
-alert(
-
-"Vendor registration will be available soon."
-
-);
-
-
-}
-
-
-
-
-
-
+/* =====================================================
+   START APPLICATION
+===================================================== */
 
 
 updateCartDisplay();
